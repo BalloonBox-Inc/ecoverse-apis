@@ -44,7 +44,7 @@ config['SQL_QUERY']['test'] = FileManagement.read_sql(
 
 config['ATOMIC_WEIGHT'] = FileManagement.read_json(
     'support_files/json/atomic_weight.json')
-config['METRIC_CONVERSION'] = FileManagement.read_json(
-    'support_files/json/metric_conversion.json')
+config['UNIT_CONVERSION'] = FileManagement.read_json(
+    'support_files/json/unit_conversion.json')
 config['PLANTATION_METRICS'] = FileManagement.read_json(
     'support_files/json/plantation_metrics.json')
