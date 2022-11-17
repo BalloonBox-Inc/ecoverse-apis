@@ -1,6 +1,7 @@
 '''This module contains a miscellaneous collection of unit functions.'''
 
 import json
+from typing import Any
 from decimal import Decimal
 from datetime import date, datetime
 
@@ -27,20 +28,20 @@ class FileManagement:
 
     def read_sql(filename: str) -> str:
         '''Read a SQL file.'''
-        with open(filename, mode='r') as f:
+        with open(filename, mode='r', encoding='utf-8') as f:
             return f.read()
 
 
 class TypeConvertion:
     '''Data type conversion class.'''
 
-    def json_serial(obj) -> str | float:
+    def json_serial(obj: Any) -> str | float:
         '''JSON serializer for objects not serializable by default json code.'''
         if isinstance(obj, (datetime, date)):
             return obj.isoformat()
-        elif isinstance(obj, Decimal):
+        if isinstance(obj, Decimal):
             return float(obj)
-        return json.JSONEncoder.default(obj)
+        return json.JSONEncoder.default(obj)  # pylint: disable=[E1120]
 
 
 class UnitMeasureConversion:

@@ -1,7 +1,16 @@
+astroid==2.12.12
 autopep8==2.0.0
+dill==0.3.6
+isort==5.10.1
+lazy-object-proxy==1.8.0
+mccabe==0.7.0
+platformdirs==2.5.4
 pyaml-env==1.2.0
 pycodestyle==2.9.1
+pylint==2.15.5
 pymssql==2.2.7
 python-dotenv==0.21.0
 PyYAML==5.4.1
 tomli==2.0.1
+tomlkit==0.11.6
+wrapt==1.14.1

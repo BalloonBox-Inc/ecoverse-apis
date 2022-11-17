@@ -26,7 +26,7 @@ if env == 'development':
     config['APP']['TESTING'] = True
 
 # set up support files
-config['SQL_QUERY'] = dict()
+config['SQL_QUERY'] = {}
 config['SQL_QUERY']['test'] = FileManagement.read_sql(
     'support_files/sql/test_example.sql')
 
