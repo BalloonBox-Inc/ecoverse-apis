@@ -18,6 +18,14 @@ class AppSettings():
                 setattr(self, k, AppSettings(v) if isinstance(v, dict) else v)
 
 
+class DataAggregator:
+    '''Data aggregator class.'''
+
+    def list_mean(l: list) -> float:
+        '''Take the average of a list of numbers.'''
+        return sum(l)/len(l)
+
+
 class FileManagement:
     '''File management class.'''
 
