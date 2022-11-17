@@ -54,8 +54,8 @@ class CarbonSequestration:
             :returns [float]: Tree CO2 sequestered in pounds.
         '''
         carbon = settings.ATOMIC_WEIGHT.carbon
-        oxygen = settings.ATOMIC_WEIGHT.oxygen
-        co2_carbon_ratio = (carbon+oxygen*2)/carbon
+        carbon_dioxide = settings.ATOMIC_WEIGHT.carbonDioxide
+        co2_carbon_ratio = carbon_dioxide/carbon
         return carbon_weight*co2_carbon_ratio
 
     def forest_carbon_dioxide_sequestered(co2: float, spha: float, settings: Settings) -> float:
