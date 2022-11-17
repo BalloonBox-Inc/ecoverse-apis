@@ -27,8 +27,8 @@ if env == 'development':
 
 # set up support files
 config['SQL_QUERY'] = {}
-config['SQL_QUERY']['test'] = FileManagement.read_sql(
-    'support_files/sql/test_example.sql')
+config['SQL_QUERY']['rubber_wood'] = FileManagement.read_sql(
+    'support_files/sql/rubber_wood.sql')
 
 config['ATOMIC_WEIGHT'] = FileManagement.read_json(
     'support_files/json/atomic_weight.json')
