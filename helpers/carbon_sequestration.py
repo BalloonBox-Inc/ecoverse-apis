@@ -68,5 +68,5 @@ class CarbonSequestration:
 
             :returns [float]: Forest CO2 sequestered in tons per hectare.
         '''
-        ton = settings.METRIC_CONVERSION.ton_pounds  # one ton equivalent weight in pounds
+        ton = settings.METRIC_CONVERSION.tonPounds  # one ton equivalent weight in pounds
         return co2*spha/ton
