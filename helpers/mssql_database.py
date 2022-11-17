@@ -16,7 +16,7 @@ class MSSQLDatabase:
 
     def query(conn: pymssql, query: str) -> list:
         '''Query a MSSQL database.'''
-        with conn.cursor(as_dict=True) as cursor:
+        with conn.cursor(as_dict=True) as cursor:  # pylint: disable=[E1101]
             cursor.execute(query)
             data = cursor.fetchall()
             data = [i for n, i in enumerate(data) if i not in data[n + 1:]]

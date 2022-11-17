@@ -5,6 +5,8 @@ ignore-paths = venv, tests
 # Disable the message, report, category or checker with the given id(s), separated by a comma
 disable = E0213
 
+# Whitelist packages or modules from where C extensions may be loaded
+extension-pkg-allow-list=pymssql
 
 [BASIC]
 # Good variable names which should always be accepted, separated by a comma
