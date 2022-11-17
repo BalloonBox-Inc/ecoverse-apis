@@ -4,7 +4,17 @@ import json
 from decimal import Decimal
 from datetime import date, datetime
 
-from config import Settings
+
+class AppSettings():
+    '''Application settings class.'''
+
+    def __init__(self, d):
+        for k, v in d.items():
+            if isinstance(k, (list, tuple)):
+                setattr(self, k, [AppSettings(x) if isinstance(
+                    x, dict) else x for x in v])
+            else:
+                setattr(self, k, AppSettings(v) if isinstance(v, dict) else v)
 
 
 class FileManagement:
@@ -36,7 +46,7 @@ class TypeConvertion:
 class UnitMeasureConversion:
     '''Unit measure conversion class.'''
 
-    def length(value: float, unit_in: str, unit_out: str, settings: Settings) -> float:
+    def length(value: float, unit_in: str, unit_out: str, settings: AppSettings) -> float:
         '''Convert lenght measures from a unit to another.'''
         if unit_in == 'cm' and unit_out == 'in':
             unit = settings.UNIT_CONVERSION.length.cmIn
@@ -44,7 +54,7 @@ class UnitMeasureConversion:
             unit = settings.UNIT_CONVERSION.length.mFt
         return value*unit
 
-    def weight(value: float, unit_in: str, unit_out: str, settings: Settings) -> float:
+    def weight(value: float, unit_in: str, unit_out: str, settings: AppSettings) -> float:
         '''Convert weight measures from a unit to another.'''
         if unit_in == 'ton' and unit_out == 'lb':
             unit = settings.UNIT_CONVERSION.weight.tonLb

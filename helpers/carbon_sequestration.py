@@ -1,7 +1,7 @@
 '''This module calculates carbon sequestration based on the following:
 https://www.unm.edu/~jbrink/365/Documents/Calculating_tree_carbon.pdf'''
 
-from config import Settings
+from helpers.misc import AppSettings
 
 
 class CarbonSequestration:
@@ -45,7 +45,7 @@ class CarbonSequestration:
         '''
         return dry_weight*carbon_content
 
-    def tree_carbon_dioxide_sequestered(carbon_weight: float, settings: Settings) -> float:
+    def tree_carbon_dioxide_sequestered(carbon_weight: float, settings: AppSettings) -> float:
         '''
         Determines the weight of carbon dioxide sequestered by a tree.
 
@@ -58,7 +58,7 @@ class CarbonSequestration:
         co2_carbon_ratio = carbon_dioxide/carbon
         return carbon_weight*co2_carbon_ratio
 
-    def forest_carbon_dioxide_sequestered(co2: float, spha: float, settings: Settings) -> float:
+    def forest_carbon_dioxide_sequestered(co2: float, spha: float, settings: AppSettings) -> float:
         '''
         Determines the weight of carbon dioxide sequestered by a forest.
         Assume the trees were planted at the same time and grew equally, i.e. the forest trees have the same age and size.
