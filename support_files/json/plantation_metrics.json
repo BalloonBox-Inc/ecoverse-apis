@@ -1,33 +1,33 @@
 {
     "plantationMetrics": [
         {
-            "genusName": "Hevea",
-            "speciesName": "Brasiliensis",
+            "genusName": "hevea",
+            "speciesName": "brasiliensis",
             "source": "support_files/pdf/hevea_brasiliensis.pdf",
             "height": {
                 "measure": [19.8, 20.1, 20.9],
                 "unit": "m",
-                "sourceLocation": "Section 3.1, Table 1, Page 4"
+                "sourceLocation": "section 3.1, table 1, page 4"
             },
             "diameterBreastHeight": {
                 "measure": [23.7, 24.6, 28.4],
                 "unit": "cm",
-                "sourceLocation": "Section 3.1, Table 1, Page 4"
+                "sourceLocation": "section 3.1, table 1, page 4"
             },
             "rootDryMass": {
                 "measure": [0.14, 0.15],
                 "unit": "%",
-                "sourceLocation": "Section 3.1, Paragraph 1, Page 4"
+                "sourceLocation": "section 3.1, paragraph 1, page 4"
             },
             "dryBiomass": {
                 "measure": [0.74, 0.76],
                 "unit": "%",
-                "sourceLocation": "Section 3.1, Paragraph 1, Page 4"
+                "sourceLocation": "section 3.1, paragraph 1, page 4"
             },
             "carbonConcentration": {
                 "measure": [0.523, 0.503, 0.502, 0.498, 0.489],
                 "unit": "%",
-                "sourceLocation": "Section 3.2, Table 2, Page 4"
+                "sourceLocation": "section 3.2, table 2, page 4"
             }
         }
     ]
