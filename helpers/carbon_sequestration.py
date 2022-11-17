@@ -58,9 +58,9 @@ class CarbonSequestration:
         co2_carbon_ratio = carbon_dioxide/carbon
         return carbon_weight*co2_carbon_ratio
 
-    def forest_carbon_dioxide_sequestered(co2: float, spha: float, settings: AppSettings) -> float:
+    def plantation_carbon_dioxide_sequestered(co2: float, spha: float, settings: AppSettings) -> float:
         '''
-        Determines the weight of carbon dioxide sequestered by a forest.
+        Determines the weight of carbon dioxide sequestered by a plantation.
         Assume the trees were planted at the same time and grew equally, i.e. the forest trees have the same age and size.
 
             :param co2: Tree CO2 sequestered in pounds.
