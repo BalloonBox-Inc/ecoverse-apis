@@ -1,0 +1,32 @@
+[MASTER]
+# Add files or directories to the blacklist, separated by a comma
+ignore-paths = venv, tests
+
+# Disable the message, report, category or checker with the given id(s), separated by a comma
+disable = E0213
+
+
+[BASIC]
+# Good variable names which should always be accepted, separated by a comma
+good-names = db,f
+
+
+[ELIF]
+# Maximum number of nested blocks for function / method body
+max-nested-blocks = 3
+
+
+[FORMAT]
+# Maximum number of characters on a single line
+max-line-length = 160
+
+
+[DESIGN]
+# Maximum number of arguments for function / method
+max-args = 8
+
+# Maximum number of attributes for a class (see R0902)
+max-attributes = 8
+
+# Minimum number of public methods for a class (see R0903)
+min-public-methods = 0
