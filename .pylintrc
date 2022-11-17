@@ -8,7 +8,7 @@ disable = E0213
 
 [BASIC]
 # Good variable names which should always be accepted, separated by a comma
-good-names = d,f,k,s,v
+good-names = d,f,k,l,s,v
 
 
 [ELIF]
