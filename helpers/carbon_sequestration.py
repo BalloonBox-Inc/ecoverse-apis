@@ -1,5 +1,5 @@
 '''This module calculates carbon sequestration based on the following:
-https://www.unm.edu/~jbrink/365/Documents/Calculating_tree_carbon.pdf'''
+./support_files/pdf/carbon_sequestration.pdf'''
 
 from helpers.misc import AppSettings
 
