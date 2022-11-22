@@ -1,12 +1,24 @@
 APP:
   PROJECT_NAME: Ecoverse APIs
   PROJECT_VERSION: 1.0.0
-  ENVIRONMENT: !ENV ${ENVIRONMENT}
+  ENVIRONMENT: !ENV ${ENVIRONMENT} # It must be one of the following: development | production
   DEBUG: False
   TESTING: False
 
-DATABASE: # MSSQL database
-  SERVER: !ENV ${SERVER}
-  USERNAME: !ENV ${USERNAME}
-  PASSWORD: !ENV ${PASSWORD}
-  DATABASE: !ENV ${DATABASE}
+ADMIN:
+  USERNAME: !ENV ${ADMIN_USERNAME}
+  PASSWORD: !ENV ${ADMIN_PASSWORD}
+
+DATABASE:
+  MSSQL:
+    SERVER: !ENV ${MSSQL_SERVER}
+    USERNAME: !ENV ${MSSQL_USERNAME}
+    PASSWORD: !ENV ${MSSQL_PASSWORD}
+    DATABASE: !ENV ${MSSQL_DATABASE}
+  POSTGRESQL:
+    URI: !ENV ${DATABASE_URL}
+
+SECURITY:
+  JWT_EXPIRE_MINUTES: !ENV ${JWT_EXPIRE_MINUTES} # It is recommended to be shorter than 30 minutes
+  JWT_ALGORITHM: !ENV ${JWT_ALGORITHM} # It is recommended to use one of the following: HS256 | RS256 | HS512 | RS512
+  JWT_SECRET_KEY: !ENV ${JWT_SECRET_KEY} # To generate a secure random secret key use the command: openssl rand -hex 512
