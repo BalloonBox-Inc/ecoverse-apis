@@ -8,7 +8,7 @@ from config import get_settings
 
 
 settings = get_settings()
-engine = create_engine(settings.DATABASE.BASE_URL)
+engine = create_engine(settings.DATABASE.POSTGRESQL.URI)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
