@@ -26,6 +26,11 @@ def postgresql_uri(uri: str) -> str:
 # project settings
 config = parse_config('config.yaml')
 
+# set up API prefix
+version = config['APP']['PROJECT_VERSION']
+config['API'] = {}
+config['API']['PREFIX'] = f'/api/v{version.split(".")[0]}'
+
 # set up environment
 if config['APP']['ENVIRONMENT'] == 'development':
     config['APP']['DEBUG'] = True
@@ -34,8 +39,7 @@ if config['APP']['ENVIRONMENT'] == 'development':
 # set up database
 config['DATABASE']['POSTGRESQL']['URI'] = postgresql_uri(config['DATABASE']['POSTGRESQL']['URI'])
 
-
-# set up support files
+# set up supporting data
 config['SQL_QUERY'] = {}
 config['SQL_QUERY']['rubber_wood'] = FileManagement.read_sql('supporting_data/sql/rubber_wood.sql')
 

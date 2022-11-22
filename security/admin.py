@@ -10,9 +10,11 @@ from database import crud, models
 from database.session import get_db
 from security.hashing import SecureHash
 from security.tokens import JSONWebToken
+from config import get_settings
 
 
-OAUTH2_SCHEME = OAuth2PasswordBearer(tokenUrl='admin/token')
+settings = get_settings()
+OAUTH2_SCHEME = OAuth2PasswordBearer(tokenUrl=f'{settings.API.PREFIX}/admin/token')
 
 
 def get_admin(db: Session, username: str):
