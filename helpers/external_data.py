@@ -1,10 +1,10 @@
-'''This module access the MSSQL database. It might need to install some dependencies first.
+'''This module access the MSSQL external database. It might need to install some dependencies first.
 Learn more about it at https://github.com/pymssql/pymssql/issues/731'''
 
 import json
 import pymssql
 
-from helpers.misc import TypeConvertion
+from helpers.misc import JSONCustomEncoder
 
 
 class MSSQLDatabase:
@@ -23,6 +23,6 @@ class MSSQLDatabase:
             data = json.dumps(
                 obj=data,
                 allow_nan=False,
-                default=TypeConvertion.json_serial
+                cls=JSONCustomEncoder
             )
         return json.loads(data)

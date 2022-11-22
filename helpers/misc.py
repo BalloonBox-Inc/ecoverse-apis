@@ -2,6 +2,7 @@
 
 import json
 from typing import Any
+from uuid import UUID
 from decimal import Decimal
 from datetime import date, datetime
 
@@ -12,8 +13,7 @@ class AppSettings():
     def __init__(self, d):
         for k, v in d.items():
             if isinstance(k, (list, tuple)):
-                setattr(self, k, [AppSettings(x) if isinstance(
-                    x, dict) else x for x in v])
+                setattr(self, k, [AppSettings(x) if isinstance(x, dict) else x for x in v])
             else:
                 setattr(self, k, AppSettings(v) if isinstance(v, dict) else v)
 
@@ -21,9 +21,23 @@ class AppSettings():
 class DataAggregator:
     '''Data aggregator class.'''
 
-    def list_mean(l: list) -> float:
+    def list_mean(lst: list) -> float:
         '''Take the average of a list of numbers.'''
-        return sum(l)/len(l)
+        return sum(lst)/len(lst)
+
+
+class JSONCustomEncoder(json.JSONEncoder):
+    '''JSON custom encoder class.'''
+
+    def default(self, o: Any) -> str | float:
+        '''JSON serializer for objects not serializable by default json code.'''
+        if isinstance(o, (datetime, date)):
+            return o.isoformat()
+        if isinstance(o, Decimal):
+            return float(o)
+        if isinstance(o, UUID):
+            return o.hex
+        return super().default(o)
 
 
 class FileManagement:
@@ -34,22 +48,15 @@ class FileManagement:
         with open(filename, mode='r', encoding='utf-8') as f:
             return json.load(f)
 
+    def read_txt(filename: str) -> str:
+        '''Read a text file.'''
+        with open(filename, mode='r', encoding='utf-8') as f:
+            return f.read()
+
     def read_sql(filename: str) -> str:
         '''Read a SQL file.'''
         with open(filename, mode='r', encoding='utf-8') as f:
             return f.read()
-
-
-class TypeConvertion:
-    '''Data type conversion class.'''
-
-    def json_serial(obj: Any) -> str | float:
-        '''JSON serializer for objects not serializable by default json code.'''
-        if isinstance(obj, (datetime, date)):
-            return obj.isoformat()
-        if isinstance(obj, Decimal):
-            return float(obj)
-        return json.JSONEncoder.default(obj)  # pylint: disable=[E1120]
 
 
 class UnitMeasureConversion:
