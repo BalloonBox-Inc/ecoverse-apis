@@ -1,25 +1,26 @@
-
 SELECT
     g.GroupSchemeName,
     rmu.RegionalManagerUnitName,
     f.FarmName,
     f.FarmSize,
+    f.IsActive,
+    f.IsSuspended,
+    f.Province,
+    f.Town,
+    f.FarmRoleId,
+    f.Latitude,
+    f.Longitude,
     area.AreaTypeName,
     mgt.UnitNumber,
     mgt.PolygonArea,
     mgt.EffectiveArea,
-    mgt.SphaAge,
-    mgt.SphaSurvival,
     mgt.UtilMAI,
-    mgt.Survival,
+    mgt.UtilMAI * mgt.EffectiveArea * DATEDIFF(year, mgt.PlantDT, GETDATE()) AS TotalVolume,
     mgt.PlannedPlantDT,
     mgt.PlantDT,
-    mgt.UtilMAI * mgt.EffectiveArea * DATEDIFF(year, mgt.PlantDT, GETDATE()) AS TotalVolume,
     s.SpeciesGroupTemplateName,
     s.GenusName,
-    s.SpecieName AS SpeciesName,
-    s.ShortCode,
-    s.CommonName
+    s.SpecieName AS SpeciesName
 
 FROM fmp.ManagementUnit AS mgt
 
@@ -36,40 +37,37 @@ FROM fmp.ManagementUnit AS mgt
     ON mgt.AreaTypeId = area.AreaTypeId
 
     LEFT JOIN (
-    SELECT
+        SELECT
         a.SpeciesGroupTemplateId,
         a.SpeciesGroupTemplateName,
         b.GenusName,
-        b.SpecieName,
-        b.ShortCode,
-        b.CommonName
+        b.SpecieName
 
     FROM (
-        SELECT
+            SELECT
             sgt.SpeciesGroupTemplateId,
             sgt.SpeciesGroupTemplateName
 
         FROM fmp.SpeciesGroupTemplate AS sgt
-        ) AS a
+            ) AS a
 
         FULL OUTER JOIN (
-        SELECT
+            SELECT
             sgtsmd.SpeciesGroupTemplateId,
             smd.GenusName,
             smd.SpecieName,
-            smd.ShortCode,
-            smd.CommonName,
             sgtsmd.Composition
 
         FROM fmp.SpeciesGroupTemplateSpeciesMasterData AS sgtsmd
 
             LEFT JOIN fmp.SpeciesMasterData AS smd
             ON sgtsmd.SpeciesMasterDataId = smd.SpeciesMasterDataId
-        ) AS b
+            ) AS b
 
         ON a.SpeciesGroupTemplateId = b.SpeciesGroupTemplateId
-    ) AS s
-
+        ) AS s
     ON mgt.SpeciesGroupTemplateId = s.SpeciesGroupTemplateId
 
 WHERE g.GroupSchemeName = 'Sri Trang Thailand'
+    AND f.IsActive = 'True'
+    AND f.IsSuspended = 'False'

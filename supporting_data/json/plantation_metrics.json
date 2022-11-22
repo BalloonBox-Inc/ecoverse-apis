@@ -3,7 +3,7 @@
         {
             "genusName": "hevea",
             "speciesName": "brasiliensis",
-            "source": "support_files/pdf/hevea_brasiliensis.pdf",
+            "source": "supporting_data/pdf/hevea_brasiliensis.pdf",
             "height": {
                 "measure": [19.8, 20.1, 20.9],
                 "unit": "m",
