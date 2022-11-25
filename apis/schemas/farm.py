@@ -52,20 +52,20 @@ class FarmFinder(BaseModel):
 class FarmResponse(BaseModel):
     '''Response schema to /farm/*'''
 
-    FarmId: str | None = None
-    UnitNumber: str | None = None
-    PolygonArea: float | None = None
-    EffectiveArea: float | None = None
-    PlannedPlantDT: str | None = None
-    PlantDT: str | None = None
-    IsActive: bool | None = None
-    Latitude: float | None = None
-    Longitude: float | None = None
-    Province: str | None = None
-    FarmSize: float | None = None
-    IsSuspended: bool | None = None
-    GroupSchemeName: str | None = None
-    ProductGroupDescription: str | None = None
-    GenusName: str | None = None
-    SpeciesName: str | None = None
-    CarbonSequestered: float | None = None
+    farmId: str | None = None
+    unitNumber: str | None = None
+    polygonArea: float | None = None
+    effectiveArea: float | None = None
+    plannedPlantDt: str | None = None
+    plantDt: str | None = None
+    isActive: bool | None = None
+    latitude: float | None = None
+    longitude: float | None = None
+    province: str | None = None
+    farmSize: float | None = None
+    isSuspended: bool | None = None
+    groupSchemeName: str | None = None
+    productGroupDescription: str | None = None
+    genusName: str | None = None
+    speciesName: str | None = None
+    carbonSequestered: float | None = None

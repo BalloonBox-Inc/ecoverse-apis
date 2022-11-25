@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, status
 from fastapi_pagination import Page, paginate
 
 from config import get_settings
-from helpers.misc import AppSettings
+from helpers.misc import AppSettings, ResponseFormatter
 from database.external import MSSQLDatabase
 from apis.schemas.farm import FarmResponse
 from model.carbon_sequestration import CarbonSequestration
@@ -41,6 +41,7 @@ async def farm(
         co2 = CarbonSequestration.tons_per_hectare_per_year(tree=tree, spha=1000, age=30, settings=settings)
         farm['CarbonSequestered'] = co2
 
-    # TODO: format response
+    # format response
+    data = ResponseFormatter.obj_list_to_camel_case(data=data)
 
     return paginate(data)

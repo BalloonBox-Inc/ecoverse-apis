@@ -5,6 +5,7 @@ from typing import Any
 from uuid import UUID
 from decimal import Decimal
 from datetime import date, datetime
+from caseconverter import camelcase
 
 
 class AppSettings():
@@ -26,18 +27,12 @@ class DataAggregator:
         return sum(lst)/len(lst)
 
 
-class JSONCustomEncoder(json.JSONEncoder):
-    '''JSON custom encoder class.'''
+class DataFormatter:
+    '''Data formatter class.'''
 
-    def default(self, o: Any) -> str | float:
-        '''JSON serializer for objects not serializable by default json code.'''
-        if isinstance(o, (datetime, date)):
-            return o.isoformat()
-        if isinstance(o, Decimal):
-            return float(o)
-        if isinstance(o, UUID):
-            return o.hex
-        return super().default(o)
+    def camel_case(s: str) -> str:
+        '''Convert a string case to camel style.'''
+        return camelcase(s)
 
 
 class FileManagement:
@@ -57,6 +52,33 @@ class FileManagement:
         '''Read a SQL file.'''
         with open(filename, mode='r', encoding='utf-8') as f:
             return f.read()
+
+
+class JSONCustomEncoder(json.JSONEncoder):
+    '''JSON custom encoder class.'''
+
+    def default(self, o: Any) -> str | float:
+        '''JSON serializer for objects not serializable by default json code.'''
+        if isinstance(o, (datetime, date)):
+            return o.isoformat()
+        if isinstance(o, Decimal):
+            return float(o)
+        if isinstance(o, UUID):
+            return o.hex
+        return super().default(o)
+
+
+class ResponseFormatter:
+    '''HTTP Response formatter class.'''
+
+    def obj_list_to_camel_case(data: list) -> list:
+        '''Convert the keys of a list of dictionaries to camel style.'''
+        keys = list(data[0].keys())
+        for d in data:
+            for k in keys:
+                key = DataFormatter.camel_case(k)
+                d[key] = d.pop(k)
+        return data
 
 
 class UnitMeasureConversion:
