@@ -10,7 +10,7 @@ from helpers.lru_caching import timed_lru_cache
 load_dotenv()
 
 
-@timed_lru_cache(seconds=60)
+@timed_lru_cache(seconds=10)
 def get_settings() -> AppSettings:
     '''Set up settings in cache for the above lifetime, then refreshes it.'''
     return AppSettings(config)
@@ -42,6 +42,8 @@ config['DATABASE']['POSTGRESQL']['URI'] = postgresql_uri(config['DATABASE']['POS
 # set up supporting data
 config['SQL_QUERY'] = {}
 config['SQL_QUERY']['rubber_wood'] = FileManagement.read_sql('supporting_data/sql/rubber_wood.sql')
+config['SQL_QUERY']['farm'] = FileManagement.read_sql('supporting_data/sql/farm.sql')
+config['SQL_QUERY']['farm_finder'] = FileManagement.read_sql('supporting_data/sql/farm_finder.sql')
 
 config['ATOMIC_WEIGHT'] = FileManagement.read_json('supporting_data/json/atomic_weight.json')
 config['UNIT_CONVERSION'] = FileManagement.read_json('supporting_data/json/unit_conversion.json')
