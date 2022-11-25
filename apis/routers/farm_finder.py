@@ -43,7 +43,7 @@ async def find_farms(
     metrics = settings.PLANTATION_METRICS.plantationMetrics
     for farm in data:
         tree = PlantationMetrics.tree(data=farm, metrics=metrics)
-        co2 = CarbonSequestration.tons_per_hectare_per_year(tree=tree, spha=1000, age=30, settings=settings)
+        co2 = CarbonSequestration.tons_per_hectare_per_year(tree=tree, spha=1000, age=30, settings=settings)  # TODO: get spha and age from database
         farm['CarbonSequestered'] = co2
 
     # format response
