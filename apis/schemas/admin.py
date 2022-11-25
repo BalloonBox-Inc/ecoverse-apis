@@ -1,4 +1,4 @@
-'''This module defines the HTTP request schemas for the /admin FastAPI routers.'''
+'''This module defines the HTTP request/response schemas for the /admin FastAPI routers.'''
 
 from pydantic import BaseModel
 
