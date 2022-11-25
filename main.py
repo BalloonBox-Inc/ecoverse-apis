@@ -4,6 +4,7 @@ from fastapi import FastAPI, Request, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
+from fastapi_pagination import add_pagination
 
 from config import get_settings
 from apis.middleware import api_routers
@@ -19,6 +20,7 @@ def start_application():
     app = FastAPI(title=settings.APP.PROJECT_NAME, version=settings.APP.PROJECT_VERSION)
     app = Throttling.enable(app)
     app = APIRouters.include(app, api_routers)
+    add_pagination(app)
     start_database()
     return app
 

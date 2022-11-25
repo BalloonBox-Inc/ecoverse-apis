@@ -1,7 +1,8 @@
 '''This module calculates carbon sequestration based on the following:
 ./supporting_data/pdf/carbon_sequestration.pdf'''
 
-from helpers.misc import AppSettings
+from helpers.misc import AppSettings, DataAggregator
+from model.tree_metrics import PlantationMetrics
 
 
 class CarbonSequestration:
@@ -61,12 +62,54 @@ class CarbonSequestration:
     def plantation_carbon_dioxide_sequestered(co2: float, spha: float, settings: AppSettings) -> float:
         '''
         Determines the weight of carbon dioxide sequestered by a plantation.
-        Assume the trees were planted at the same time and grew equally, i.e. the forest trees have the same age and size.
+        Assume the trees were planted at the same time and grew equally, i.e. the plantation trees have the same age and size.
 
             :param co2: Tree CO2 sequestered in pounds.
             :param spha: The number of stems per hectare.
 
-            :returns [float]: Forest CO2 sequestered in tons per hectare.
+            :returns [float]: Plantation CO2 sequestered in tons per hectare.
         '''
         ton = settings.UNIT_CONVERSION.weight.tonLb
         return co2*spha/ton
+
+    def tons_per_hectare_per_year(tree: dict, spha: float, age: float, settings: AppSettings) -> float:
+        '''
+        Determines the weight of carbon sequestered per hectare per year of a plantation.
+
+            :param tree: Plantation trees data dictionary.
+            :param spha: Plantation stems per hectare.
+            :param age: Plantation age in years.
+
+            :returns [float]: Plantation CO2 sequestered in tons per hectare per year.
+        '''
+        height = PlantationMetrics.tree_height(tree=tree, settings=settings)
+        diameter = PlantationMetrics.tree_diameter(tree=tree, settings=settings)
+
+        green_weight = CarbonSequestration.tree_green_weight(
+            height=height,
+            diameter=diameter,
+            root=DataAggregator.list_mean(tree['rootDryMass']['measure'])
+        )
+
+        dry_weight = CarbonSequestration.tree_dry_weight(
+            green_weight=green_weight,
+            dry_matter=DataAggregator.list_mean(tree['dryBiomass']['measure'])
+        )
+
+        carbon_weight = CarbonSequestration.tree_carbon_weight(
+            dry_weight=dry_weight,
+            carbon_content=DataAggregator.list_mean(tree['carbonConcentration']['measure'])
+        )
+
+        carbon_dioxide_seq = CarbonSequestration.tree_carbon_dioxide_sequestered(
+            carbon_weight=carbon_weight,
+            settings=settings
+        )
+
+        plantation_co2_seq = CarbonSequestration.plantation_carbon_dioxide_sequestered(
+            co2=carbon_dioxide_seq,
+            spha=spha,
+            settings=settings
+        )
+
+        return plantation_co2_seq/age
