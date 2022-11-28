@@ -58,6 +58,8 @@ class FarmResponse(BaseModel):
     effectiveArea: float | None = None
     plannedPlantDt: str | None = None
     plantDt: str | None = None
+    plantAge: float | None = None
+    sphaSurvival: float | None = None
     isActive: bool | None = None
     latitude: float | None = None
     longitude: float | None = None

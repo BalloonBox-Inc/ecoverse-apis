@@ -5,6 +5,8 @@ SELECT
     m.EffectiveArea,
     m.PlannedPlantDT,
     m.PlantDT,
+    DATEDIFF(day, m.PlantDT, GETDATE())/365.0 AS PlantAge,
+    m.SphaSurvival,
     -- gs.Farm
     f.FarmId,
     f.IsActive,
@@ -63,6 +65,8 @@ FROM fmp.ManagementUnit AS m
 
 WHERE s.GenusName IS NOT NULL
     AND s.SpecieName IS NOT NULL
+    AND m.PlantDT IS NOT NULL
+    AND m.SphaSurvival IS NOT NULL
     AND f.IsSuspended = 'False'
     AND f.IsActive = '{}'
     AND p.ProductGroupTemplateDescription = '{}'
