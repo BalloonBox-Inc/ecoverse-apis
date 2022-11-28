@@ -73,11 +73,9 @@ class ResponseFormatter:
 
     def obj_list_to_camel_case(data: list) -> list:
         '''Convert the keys of a list of dictionaries to camel style.'''
-        keys = list(data[0].keys())
-        keys = [DataFormatter.camel_case(k) for k in keys]
         for d in data:  # pylint: disable=[E1133]
-            for k1, k2 in zip(keys, d.keys()):  # pylint: disable=[C0103]
-                d[k1] = d.pop(k2)
+            for k in list(d.keys()):
+                d[DataFormatter.camel_case(k)] = d.pop(k)
         return data
 
 
