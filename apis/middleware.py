@@ -3,7 +3,7 @@
 from fastapi import APIRouter
 
 from config import get_settings
-from apis.routers import admin_login, admin_mgmt, farm, farm_finder
+from apis.routers import admin_login, admin_mgmt, farm
 
 
 settings = get_settings()
@@ -22,4 +22,3 @@ api_routers.include_router(admin_mgmt.router, prefix=router_prefix, tags=tags, i
 router_prefix = f'{settings.API.PREFIX}/farm'
 tags = ['Farm']
 api_routers.include_router(farm.router, prefix=router_prefix, tags=tags)
-api_routers.include_router(farm_finder.router, prefix=router_prefix, tags=tags)
