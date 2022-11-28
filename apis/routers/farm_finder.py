@@ -9,7 +9,7 @@ from helpers.misc import AppSettings, ResponseFormatter
 from database.external import MSSQLDatabase
 from apis.schemas.farm import FarmFinder, FarmResponse
 from model.carbon_sequestration import CarbonSequestration
-from model.tree_metrics import PlantationMetrics
+from model.plantation_metrics import PlantationMetrics
 
 
 router = APIRouter()
