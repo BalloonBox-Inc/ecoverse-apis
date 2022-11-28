@@ -37,7 +37,7 @@ class Status(str, Enum):
 
 
 # Requests
-class FarmFinder(BaseModel):
+class Farm(BaseModel):
     '''Request schema to /farm'''
 
     country: Country
