@@ -5,7 +5,7 @@ from fastapi import status
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 
-from helpers.api_exceptions import ExceptionFormatter
+from helpers.api_exceptions import ResponseValidationError
 
 
 def get_object(
@@ -31,14 +31,14 @@ def get_object(
     try:
         data = db.query(table).filter(column == value).first()
         if not data:
-            raise ExceptionFormatter(
+            raise ResponseValidationError(
                 status_code=exc_status_code,
                 message=exc_message
             )
         return data
 
     except SQLAlchemyError as e:
-        raise ExceptionFormatter(
+        raise ResponseValidationError(
             status_code=exc_status_code,
             message=exc_message) from e
 
@@ -65,14 +65,14 @@ def get_table(
     try:
         data = db.query(table).all()
         if not data:
-            raise ExceptionFormatter(
+            raise ResponseValidationError(
                 status_code=exc_status_code,
                 message=exc_message
             )
         return data
 
     except SQLAlchemyError as e:
-        raise ExceptionFormatter(
+        raise ResponseValidationError(
             status_code=exc_status_code,
             message=exc_message) from e
 
@@ -100,7 +100,7 @@ def create_object(
 
     except SQLAlchemyError as e:
         db.rollback()
-        raise ExceptionFormatter(
+        raise ResponseValidationError(
             status_code=exc_status_code,
             message=exc_message) from e
 
@@ -135,7 +135,7 @@ def update_object(
 
     except SQLAlchemyError as e:
         db.rollback()
-        raise ExceptionFormatter(
+        raise ResponseValidationError(
             status_code=exc_status_code,
             message=exc_message) from e
 
@@ -163,7 +163,7 @@ def delete_object(
 
     except SQLAlchemyError as e:
         db.rollback()
-        raise ExceptionFormatter(
+        raise ResponseValidationError(
             status_code=exc_status_code,
             message=exc_message) from e
 

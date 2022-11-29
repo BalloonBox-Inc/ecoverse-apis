@@ -1,17 +1,15 @@
 '''This module initiates the FastAPI application and the Database session.'''
 
-from fastapi import FastAPI, Request, status
-from fastapi.encoders import jsonable_encoder
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from fastapi_pagination import add_pagination
 
 from config import get_settings
 from apis.middleware import api_routers
 from database.startup import start_database
-from helpers.api_exceptions import ExceptionFormatter
 from helpers.api_routers import APIRouters
 from helpers.api_throttling import Throttling
+from helpers.api_exceptions import ResponseValidationError, request_exception_handler, response_exception_handler
 
 
 def start_application():
@@ -26,33 +24,5 @@ def start_application():
 
 
 app = start_application()
-
-
-# body request error handler
-@app.exception_handler(RequestValidationError)
-async def validation_exception_handler(request: Request, exc: RequestValidationError):  # pylint: disable=[W0613]
-    '''Ensure that the parameters passed by the HTTP request follow the defined schemas.'''
-    return JSONResponse(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-        content=jsonable_encoder(
-            dict(
-                error=True,
-                message=exc.errors()
-            )
-        )
-    )
-
-
-# custom exception handler
-@app.exception_handler(ExceptionFormatter)
-async def standard_exception_handler(request: Request, exc: ExceptionFormatter):  # pylint: disable=[W0613]
-    '''Ensure errors are standardized.'''
-    return JSONResponse(
-        status_code=exc.status_code,
-        content=jsonable_encoder(
-            dict(
-                error=True,
-                message=exc.message
-            )
-        )
-    )
+app.add_exception_handler(RequestValidationError, request_exception_handler)
+app.add_exception_handler(ResponseValidationError, response_exception_handler)
