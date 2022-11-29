@@ -7,6 +7,14 @@ concurrency:
   cancel-in-progress: true
 
 env:
+  ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
+  ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
+  ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  MSSQL_SERVER: ${{ secrets.MSSQL_SERVER }}
+  MSSQL_USERNAME: ${{ secrets.MSSQL_USERNAME }}
+  MSSQL_PASSWORD: ${{ secrets.MSSQL_PASSWORD }}
+  MSSQL_DATABASE: ${{ secrets.MSSQL_DATABASE }}
   ACCESS_TOKEN_EXPIRE_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
   DATABASE_URL: ${{ secrets.DATABASE_URL }}
   JWT_ALGORITHM: ${{ secrets.JWT_ALGORITHM }}
@@ -45,3 +53,21 @@ jobs:
           python -m pip install --upgrade pip setuptools flake8
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           flake8 .
+
+  test-check-apitest:
+    if: success()
+    needs: test-check-unittest
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+
+      - name: API test
+        run: |
+          python -m pip install --upgrade pip setuptools pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pytest tests/api_tests
