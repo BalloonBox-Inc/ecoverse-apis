@@ -10,7 +10,7 @@ from slowapi.util import get_remote_address
 class Throttling:
     '''Throttling limiter class.'''
 
-    def enable(app: FastAPI):
+    def enable(app: FastAPI) -> FastAPI:
         '''Enable a limiter to control the amount of requests per minute based on IP address.'''
         limiter = Limiter(key_func=get_remote_address, default_limits=['5/minute'])
         app.state.limiter = limiter
@@ -18,7 +18,7 @@ class Throttling:
         app.add_middleware(SlowAPIMiddleware)
         return app
 
-    def disable(app: FastAPI):
+    def disable(app: FastAPI) -> FastAPI:
         '''Disable throttling limiter.'''
         limiter = Limiter(key_func=get_remote_address, enabled=False)
         app.state.limiter = limiter
