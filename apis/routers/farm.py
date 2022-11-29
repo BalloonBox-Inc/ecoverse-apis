@@ -44,8 +44,12 @@ async def find_farms(
     # calculate CO2 sequestration
     metrics = settings.PLANTATION_METRICS.plantationMetrics
     for farm in data:
+        spha = farm['SphaSurvival']
+        if not spha:
+            spha = 1  # TODO: update spha
+
         tree = PlantationMetrics.tree(data=farm, metrics=metrics)
-        co2 = CarbonSequestration.tons_per_hectare_per_year(tree=tree, spha=farm['SphaSurvival'], age=farm['PlantAge'], settings=settings)
+        co2 = CarbonSequestration.tons_per_hectare_per_year(tree=tree, spha=spha*0.9, age=farm['PlantAge'], settings=settings)
         farm['CarbonSequestered'] = co2
 
     # format response
@@ -76,8 +80,12 @@ async def find_farm(
     # calculate CO2 sequestration
     metrics = settings.PLANTATION_METRICS.plantationMetrics
     for farm in data:
+        spha = farm['SphaSurvival']
+        if not spha:
+            spha = 1  # TODO: update spha
+
         tree = PlantationMetrics.tree(data=farm, metrics=metrics)
-        co2 = CarbonSequestration.tons_per_hectare_per_year(tree=tree, spha=farm['SphaSurvival'], age=farm['PlantAge'], settings=settings)
+        co2 = CarbonSequestration.tons_per_hectare_per_year(tree=tree, spha=spha*0.9, age=farm['PlantAge'], settings=settings)
         farm['CarbonSequestered'] = co2
 
     # format response
