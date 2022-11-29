@@ -9,6 +9,7 @@ from helpers.misc import AppSettings, ResponseFormatter
 # from helpers.api_exceptions import ResponseValidationError
 from database.external import MSSQLDatabase
 from apis.schemas.farm import Farm, FarmResponse
+from security.dependencies import valid_farm_id
 from model.carbon_sequestration import CarbonSequestration
 from model.plantation_metrics import PlantationMetrics
 
@@ -54,8 +55,8 @@ async def find_farms(
 
 
 @router.get('/{farmId}', status_code=status.HTTP_200_OK, response_model=Page[FarmResponse])
-async def farm(
-    farmId: str,
+async def find_farm(
+    farmId: str = Depends(valid_farm_id),
     db: pymssql = Depends(MSSQLDatabase.connect),
     settings: AppSettings = Depends(get_settings)
 ):  # pylint: disable=[C0103]
