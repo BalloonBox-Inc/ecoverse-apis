@@ -6,20 +6,6 @@ concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
-  ADMIN_USERNAME: ${{ secrets.ADMIN_USERNAME }}
-  ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
-  DATABASE_URL: ${{ secrets.DATABASE_URL }}
-  MSSQL_SERVER: ${{ secrets.MSSQL_SERVER }}
-  MSSQL_USERNAME: ${{ secrets.MSSQL_USERNAME }}
-  MSSQL_PASSWORD: ${{ secrets.MSSQL_PASSWORD }}
-  MSSQL_DATABASE: ${{ secrets.MSSQL_DATABASE }}
-  ACCESS_TOKEN_EXPIRE_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
-  DATABASE_URL: ${{ secrets.DATABASE_URL }}
-  JWT_ALGORITHM: ${{ secrets.JWT_ALGORITHM }}
-  JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
-
 jobs:
   quality-check-pylint:
     runs-on: ubuntu-latest
