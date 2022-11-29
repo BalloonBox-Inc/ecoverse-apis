@@ -66,7 +66,6 @@ FROM fmp.ManagementUnit AS m
 WHERE s.GenusName IS NOT NULL
     AND s.SpecieName IS NOT NULL
     AND m.PlantDT IS NOT NULL
-    AND m.SphaSurvival IS NOT NULL
     AND f.IsSuspended = 'False'
     AND f.IsActive = '{}'
     AND p.ProductGroupTemplateDescription = '{}'
