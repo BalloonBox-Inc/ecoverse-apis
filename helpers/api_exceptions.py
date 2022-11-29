@@ -21,7 +21,7 @@ async def request_exception_handler(request: Request, exc: RequestValidationErro
         content=jsonable_encoder(
             dict(
                 error=True,
-                message=dict([(d['loc'][-1], d['msg']) for d in exc.errors()])
+                message={d['loc'][-1]: d['msg'] for d in exc.errors()}
             )
         )
     )
