@@ -6,6 +6,7 @@ from fastapi_pagination import Page, paginate
 
 from config import get_settings
 from helpers.misc import AppSettings, ResponseFormatter
+# from helpers.api_exceptions import ResponseValidationError
 from database.external import MSSQLDatabase
 from apis.schemas.farm import Farm, FarmResponse
 from model.carbon_sequestration import CarbonSequestration
@@ -18,7 +19,7 @@ router = APIRouter()
 @router.post('', status_code=status.HTTP_200_OK, response_model=Page[FarmResponse])
 async def find_farms(
     item: Farm,
-    db: pymssql = Depends(MSSQLDatabase.get_db),
+    db: pymssql = Depends(MSSQLDatabase.connect),
     settings: AppSettings = Depends(get_settings)
 ):
     '''
@@ -55,7 +56,7 @@ async def find_farms(
 @router.get('/{farmId}', status_code=status.HTTP_200_OK, response_model=Page[FarmResponse])
 async def farm(
     farmId: str,
-    db: pymssql = Depends(MSSQLDatabase.get_db),
+    db: pymssql = Depends(MSSQLDatabase.connect),
     settings: AppSettings = Depends(get_settings)
 ):  # pylint: disable=[C0103]
     '''
