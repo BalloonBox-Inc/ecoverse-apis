@@ -14,12 +14,12 @@ from helpers.api_exceptions import ResponseValidationError, request_exception_ha
 
 def start_application():
     '''Initiate the FastAPI application.'''
+    start_database()
     settings = get_settings()
     app = FastAPI(title=settings.APP.PROJECT_NAME, version=settings.APP.PROJECT_VERSION)
     app = Throttling.enable(app)
     app = APIRouters.include(app, api_routers)
     add_pagination(app)
-    start_database()
     return app
 
 
