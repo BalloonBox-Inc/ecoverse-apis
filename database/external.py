@@ -15,9 +15,17 @@ settings = get_settings()
 class MSSQLDatabase:
     '''MSSQL database class.'''
 
-    def connect(server: str, username: str, password: str, database: str) -> Generator:
+    def connect() -> Generator:  # pylint: disable=[E0211]
         '''Connect to a MSSQL database.'''
-        return pymssql.connect(server, username, password, database)
+        try:
+            server = settings.DATABASE.MSSQL.SERVER
+            username = settings.DATABASE.MSSQL.USERNAME
+            password = settings.DATABASE.MSSQL.PASSWORD
+            database = settings.DATABASE.MSSQL.DATABASE
+            db = pymssql.connect(server, username, password, database)
+            yield db
+        finally:
+            db.close()
 
     def query(conn: pymssql, query: str) -> list:
         '''Query a MSSQL database.'''
@@ -31,15 +39,3 @@ class MSSQLDatabase:
                 cls=JSONCustomEncoder
             )
         return json.loads(data)
-
-    def get_db() -> Generator:  # pylint: disable=[E0211]
-        '''Database generator.'''
-        try:
-            server = settings.DATABASE.MSSQL.SERVER
-            username = settings.DATABASE.MSSQL.USERNAME
-            password = settings.DATABASE.MSSQL.PASSWORD
-            database = settings.DATABASE.MSSQL.DATABASE
-            db = pymssql.connect(server, username, password, database)
-            yield db
-        finally:
-            db.close()
