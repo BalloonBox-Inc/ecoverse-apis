@@ -15,9 +15,9 @@ SELECT
     f.FarmSize,
     f.IsSuspended,
     -- gs.GroupScheme
-    g.GroupSchemeName,
+    g.GroupSchemeName AS GroupScheme,
     -- fmp.ProductGroupTemplate
-    p.ProductGroupTemplateDescription AS ProductGroupDescription,
+    p.ProductGroupTemplateDescription AS ProductGroup,
     s.GenusName,
     s.SpecieName AS SpeciesName
 
