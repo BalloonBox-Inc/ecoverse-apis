@@ -1,19 +1,16 @@
 SELECT
     -- fmp.ManagementUnit
     m.UnitNumber,
-    m.PolygonArea,
     m.EffectiveArea,
     m.PlantDT,
     DATEDIFF(day, m.PlantDT, GETDATE())/365.0 AS PlantAge,
     m.SphaSurvival,
     -- gs.Farm
     f.FarmId,
-    f.IsActive,
     f.Latitude,
     f.Longitude,
     f.Province,
     f.FarmSize,
-    f.IsSuspended,
     -- gs.GroupScheme
     g.GroupSchemeName AS GroupScheme,
     -- fmp.ProductGroupTemplate
