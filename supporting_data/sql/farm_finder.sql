@@ -3,7 +3,6 @@ SELECT
     m.UnitNumber,
     m.PolygonArea,
     m.EffectiveArea,
-    m.PlannedPlantDT,
     m.PlantDT,
     DATEDIFF(day, m.PlantDT, GETDATE())/365.0 AS PlantAge,
     m.SphaSurvival,
@@ -63,9 +62,11 @@ FROM fmp.ManagementUnit AS m
     ) AS s
     ON m.SpeciesGroupTemplateId = s.SpeciesGroupTemplateId
 
-WHERE s.GenusName IS NOT NULL
+WHERE m.PlantDT IS NOT NULL
+    AND s.GenusName IS NOT NULL
     AND s.SpecieName IS NOT NULL
-    AND m.PlantDT IS NOT NULL
+    AND f.Latitude != 0
+    AND f.Longitude != 0
     AND f.IsSuspended = 'False'
     AND f.IsActive = '{}'
     AND p.ProductGroupTemplateDescription = '{}'
