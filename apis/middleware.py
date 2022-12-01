@@ -8,14 +8,14 @@ from apis.routers import admin_login, admin_mgmt, farm
 
 settings = get_settings()
 api_routers = APIRouter()
+show_schema = False  # pylint: disable=[C0103]
 
 
 # Admin
-admin_schema = False  # pylint: disable=[C0103]
 router_prefix = f'{settings.API.PREFIX}/admin'
 tags = ['Admin']
-api_routers.include_router(admin_login.router, prefix=router_prefix, tags=tags, include_in_schema=admin_schema)
-api_routers.include_router(admin_mgmt.router, prefix=router_prefix, tags=tags, include_in_schema=admin_schema)
+api_routers.include_router(admin_login.router, prefix=router_prefix, tags=tags, include_in_schema=show_schema)
+api_routers.include_router(admin_mgmt.router, prefix=router_prefix, tags=tags, include_in_schema=show_schema)
 
 
 # Farm

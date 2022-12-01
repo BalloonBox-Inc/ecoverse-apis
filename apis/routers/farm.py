@@ -10,11 +10,12 @@ from helpers.misc import AppSettings
 # from helpers.api_exceptions import ResponseValidationError # TODO: add exceptions
 from database.external import MSSQLDatabase
 from apis.schemas.farm import Farm, FarmResponse
+from security.admin import get_current_active_admin
 from security.dependencies import valid_farm_id
 from models.farm_data_transformation import FarmData
 
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(get_current_active_admin)])
 
 
 @router.post('', status_code=status.HTTP_200_OK, response_model=Page[FarmResponse])
