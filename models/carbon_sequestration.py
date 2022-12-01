@@ -2,7 +2,7 @@
 ./supporting_data/pdf/carbon_sequestration.pdf'''
 
 from helpers.misc import AppSettings, DataAggregator
-from model.plantation_metrics import PlantationMetrics
+from models.plantation_metrics import PlantationMetrics
 
 
 class CarbonSequestration:

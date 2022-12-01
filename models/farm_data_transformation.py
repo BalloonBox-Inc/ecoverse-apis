@@ -4,8 +4,8 @@ import math
 import pandas as pd
 
 from helpers.misc import AppSettings, ResponseFormatter
-from model.carbon_sequestration import CarbonSequestration
-from model.plantation_metrics import PlantationMetrics
+from models.carbon_sequestration import CarbonSequestration
+from models.plantation_metrics import PlantationMetrics
 
 
 class FarmData:

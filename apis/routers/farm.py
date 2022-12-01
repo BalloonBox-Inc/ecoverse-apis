@@ -11,7 +11,7 @@ from helpers.misc import AppSettings
 from database.external import MSSQLDatabase
 from apis.schemas.farm import Farm, FarmResponse
 from security.dependencies import valid_farm_id
-from model.farm_data_transformation import FarmData
+from models.farm_data_transformation import FarmData
 
 
 router = APIRouter()
