@@ -2,7 +2,6 @@ SELECT
     -- fmp.ManagementUnit
     m.UnitNumber,
     m.EffectiveArea,
-    m.PlantDT,
     DATEDIFF(day, m.PlantDT, GETDATE())/365.0 AS PlantAge,
     m.SphaSurvival,
     -- gs.Farm

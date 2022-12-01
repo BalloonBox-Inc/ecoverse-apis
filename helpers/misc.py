@@ -78,6 +78,14 @@ class ResponseFormatter:
                 d[DataFormatter.camel_case(k)] = d.pop(k)
         return data
 
+    def obj_list_strip_string(data: list) -> list:
+        '''Remove the leading and the trailing characters of the string values of a list of dictionaries.'''
+        for d in data:  # pylint: disable=[E1133]
+            for k, v in d.items():
+                if isinstance(v, str):
+                    d[k] = v.strip()
+        return data
+
 
 class UnitMeasureConversion:
     '''Unit measure conversion class.'''

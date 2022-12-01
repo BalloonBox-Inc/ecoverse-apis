@@ -53,21 +53,17 @@ class FarmResponse(BaseModel):
     '''Response schema to /farm/*'''
 
     farmId: str | None = None
-    unitNumber: str | None = None
-    polygonArea: float | None = None
-    effectiveArea: float | None = None
-    plannedPlantDt: str | None = None
-    plantDt: str | None = None
-    plantAge: float | None = None
-    sphaSurvival: float | None = None
-    isActive: bool | None = None
-    latitude: float | None = None
-    longitude: float | None = None
-    province: str | None = None
-    farmSize: float | None = None
-    isSuspended: bool | None = None
-    groupSchemeName: str | None = None
-    productGroupDescription: str | None = None
+    groupScheme: str | None = None
+    productGroup: str | None = None
     genusName: str | None = None
     speciesName: str | None = None
-    carbonSequestered: float | None = None
+    province: str | None = None
+    latitude: float | None = None
+    longitude: float | None = None
+    farmSize: float | None = None  # hectares
+    farmRadius: float | None = None  # meters
+    unitNumber: int | None = None  # farm units count
+    effectiveArea: float | None = None  # hectares
+    sphaSurvival: float | None = None  # stems per hectare
+    plantAge: float | None = None  # average
+    carbonSequestered: float | None = None  # tons per hectare per year

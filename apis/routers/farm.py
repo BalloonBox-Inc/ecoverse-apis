@@ -1,17 +1,17 @@
 '''This module is part of the /farm FastAPI router.'''
 
 import pymssql
+
 from fastapi import APIRouter, Depends, status
 from fastapi_pagination import Page, paginate
 
 from config import get_settings
-from helpers.misc import AppSettings, ResponseFormatter
-# from helpers.api_exceptions import ResponseValidationError
+from helpers.misc import AppSettings
+# from helpers.api_exceptions import ResponseValidationError # TODO: add exceptions
 from database.external import MSSQLDatabase
 from apis.schemas.farm import Farm, FarmResponse
 from security.dependencies import valid_farm_id
-from model.carbon_sequestration import CarbonSequestration
-from model.plantation_metrics import PlantationMetrics
+from model.farm_data_transformation import FarmData
 
 
 router = APIRouter()
@@ -29,7 +29,7 @@ async def find_farms(
         :returns [FarmResponse]: Farm profiles.
     '''
 
-    # query farms
+    # query ALL farms
     query = settings.SQL_QUERY.farm_finder
     query = query.format(
         bool(item.status == 'Active'),
@@ -38,23 +38,16 @@ async def find_farms(
         item.maxSize
     )  # TODO: add item.country and item.certifiedFSC into SQL query
 
-    # fetch data
+    # extract
     data = MSSQLDatabase.query(conn=db, query=query)
 
-    # calculate CO2 sequestration
-    metrics = settings.PLANTATION_METRICS.plantationMetrics
-    for farm in data:
-        spha = farm['SphaSurvival']
-        if not spha:
-            spha = 1  # TODO: update spha
+    # transform
+    data = FarmData.groupby_farm_id(data=data)
+    data = FarmData.calc_radius(data=data, settings=settings)
+    data = FarmData.calc_co2(data=data, settings=settings)
+    data = FarmData.format(data=data)
 
-        tree = PlantationMetrics.tree(data=farm, metrics=metrics)
-        co2 = CarbonSequestration.tons_per_hectare_per_year(tree=tree, spha=spha*0.9, age=farm['PlantAge'], settings=settings)
-        farm['CarbonSequestered'] = co2
-
-    # format response
-    data = ResponseFormatter.obj_list_to_camel_case(data=data)
-
+    # load
     return paginate(data)
 
 
@@ -70,25 +63,18 @@ async def find_farm(
         :returns [FarmResponse]: Farm profile.
     '''
 
-    # query farm
+    # query A farm
     query = settings.SQL_QUERY.farm
     query = query.format(farmId)
 
-    # fetch data
+    # extract
     data = MSSQLDatabase.query(conn=db, query=query)
 
-    # calculate CO2 sequestration
-    metrics = settings.PLANTATION_METRICS.plantationMetrics
-    for farm in data:
-        spha = farm['SphaSurvival']
-        if not spha:
-            spha = 1  # TODO: update spha
+    # transform
+    data = FarmData.groupby_farm_id(data=data)
+    data = FarmData.calc_radius(data=data, settings=settings)
+    data = FarmData.calc_co2(data=data, settings=settings)
+    data = FarmData.format(data=data)
 
-        tree = PlantationMetrics.tree(data=farm, metrics=metrics)
-        co2 = CarbonSequestration.tons_per_hectare_per_year(tree=tree, spha=spha*0.9, age=farm['PlantAge'], settings=settings)
-        farm['CarbonSequestered'] = co2
-
-    # format response
-    data = ResponseFormatter.obj_list_to_camel_case(data=data)
-
+    # load
     return paginate(data)
