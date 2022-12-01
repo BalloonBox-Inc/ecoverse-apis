@@ -11,7 +11,7 @@ extension-pkg-allow-list=pydantic,pymssql
 
 [BASIC]
 # Good variable names which should always be accepted, separated by a comma
-good-names = db,d,e,f,k,s,v
+good-names = db,df,d,e,f,k,s,v
 
 
 [ELIF]

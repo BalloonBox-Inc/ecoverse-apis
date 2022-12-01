@@ -30,9 +30,9 @@ class FarmData:
     def calc_radius(data: list, settings: AppSettings) -> list:
         '''Calculate the farm radius based on its area size.'''
 
-        ha = settings.UNIT_CONVERSION.area.haM2
-        for d in data:
-            d['FarmRadius'] = math.sqrt((d['FarmSize']*ha)/math.pi)
+        hectare = settings.UNIT_CONVERSION.area.haM2
+        for d in data:  # pylint: disable=[E1133]
+            d['FarmRadius'] = math.sqrt((d['FarmSize']*hectare)/math.pi)
 
         return data
 
@@ -40,7 +40,7 @@ class FarmData:
         '''Calculate the farm carbon sequestration based on its plantation characteristics.'''
 
         metrics = settings.PLANTATION_METRICS.plantationMetrics
-        for d in data:
+        for d in data:  # pylint: disable=[E1133]
             spha = d['SphaSurvival']
             if not spha:
                 spha = 1  # TODO: update spha
@@ -53,9 +53,11 @@ class FarmData:
     def format(data: list) -> list:
         '''Format farm data keys and values.'''
 
-        # keys
-        data = ResponseFormatter.obj_list_to_camel_case(data=data)
-        # values
-        data = ResponseFormatter.obj_list_strip_string(data=data)
+        farm = data.copy()
 
-        return data
+        # keys
+        farm = ResponseFormatter.obj_list_to_camel_case(data=farm)
+        # values
+        farm = ResponseFormatter.obj_list_strip_string(data=farm)
+
+        return farm
