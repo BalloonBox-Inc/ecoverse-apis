@@ -51,9 +51,9 @@ async def find_farms(
     return paginate(data)
 
 
-@router.get('/{farmId}', status_code=status.HTTP_200_OK, response_model=Page[FarmResponse])
+@router.get('/{farmId}', dependencies=[Depends(valid_farm_id)], status_code=status.HTTP_200_OK, response_model=Page[FarmResponse])
 async def find_farm(
-    farmId: str = Depends(valid_farm_id),
+    farmId: str,
     db: pymssql = Depends(MSSQLDatabase.connect),
     settings: AppSettings = Depends(get_settings)
 ):  # pylint: disable=[C0103]

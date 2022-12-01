@@ -26,5 +26,5 @@ async def valid_farm_id(request: Request):
     except ValueError as exc:
         raise ResponseValidationError(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            message={'farmId': 'value format is not valid'}
+            message={'farmId': 'value is not a valid string number'}
         ) from exc
