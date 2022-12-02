@@ -70,15 +70,21 @@ async def find_farm(
         :returns [FarmResponse]: Farm profile.
     '''
 
-    # query A farm
-    query = settings.SQL_QUERY.farm
-    query = query.format(farmId)
+    # Ecoverse
+    if item.resource == 'Ecoverse':
+        data = [settings.STANLEY_PARK.__dict__]
 
-    # extract
-    data = MSSQLDatabase.query(conn=db, query=query)
+    # Database
+    else:
+        # query A farm
+        query = settings.SQL_QUERY.farm
+        query = query.format(farmId)
 
-    # transform
-    data = FarmData.groupby_farm_id(data=data)
+        # extract
+        data = MSSQLDatabase.query(conn=db, query=query)
+
+        # transform
+        data = FarmData.groupby_farm_id(data=data)
     data = FarmData.calc_radius(data=data, settings=settings)
     data = FarmData.calc_co2(data=data, settings=settings)
     data = FarmData.format(data=data)
