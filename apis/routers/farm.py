@@ -71,7 +71,7 @@ async def find_farm(
     '''
 
     # Ecoverse
-    if item.resource == 'Ecoverse':
+    if farmId == '21121215151421524':
         data = [settings.STANLEY_PARK.__dict__]
 
     # Database
