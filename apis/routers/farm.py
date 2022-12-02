@@ -30,20 +30,26 @@ async def find_farms(
         :returns [FarmResponse]: Farm profiles.
     '''
 
-    # query ALL farms
-    query = settings.SQL_QUERY.farm_finder
-    query = query.format(
-        bool(item.status == 'Active'),
-        item.resource,
-        item.minSize,
-        item.maxSize
-    )  # TODO: add item.country and item.certifiedFSC into SQL query
+    # Ecoverse
+    if item.resource == 'Ecoverse':
+        data = [settings.STANLEY_PARK.__dict__]
 
-    # extract
-    data = MSSQLDatabase.query(conn=db, query=query)
+    # Database
+    else:
+        # query ALL farms
+        query = settings.SQL_QUERY.farm_finder
+        query = query.format(
+            bool(item.status == 'Active'),
+            item.resource,
+            item.minSize,
+            item.maxSize
+        )  # TODO: add item.country and item.certifiedFSC into SQL query
 
-    # transform
-    data = FarmData.groupby_farm_id(data=data)
+        # extract
+        data = MSSQLDatabase.query(conn=db, query=query)
+
+        # transform
+        data = FarmData.groupby_farm_id(data=data)
     data = FarmData.calc_radius(data=data, settings=settings)
     data = FarmData.calc_co2(data=data, settings=settings)
     data = FarmData.format(data=data)

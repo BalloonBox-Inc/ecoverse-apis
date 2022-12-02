@@ -20,12 +20,14 @@ class Longitude(ConstrainedFloat):
 class Country(str, Enum):
     '''Allowed country values.'''
 
+    CANADA = 'Canada'
     THAILAND = 'Thailand'
 
 
 class ResourceType(str, Enum):
     '''Allowed resource type values.'''
 
+    ECOVERSE = 'Ecoverse'
     RUBBER = 'Rubber'
 
 
@@ -55,8 +57,8 @@ class FarmResponse(BaseModel):
     farmId: str | None = None
     groupScheme: str | None = None
     productGroup: str | None = None
-    genusName: str | None = None
-    speciesName: str | None = None
+    genusName: str | list | None = None
+    speciesName: str | list | None = None
     province: str | None = None
     latitude: float | None = None
     longitude: float | None = None
@@ -66,4 +68,5 @@ class FarmResponse(BaseModel):
     effectiveArea: float | None = None  # hectares
     sphaSurvival: float | None = None  # stems per hectare
     plantAge: float | None = None  # average
-    carbonSequestered: float | None = None  # tons per hectare per year
+    carbonSequesteredPerYear: float | None = None  # tons per hectare per year
+    carbonSequesteredPerDay: float | None = None  # tons per hectare per day

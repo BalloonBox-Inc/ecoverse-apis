@@ -40,11 +40,14 @@ if config['APP']['ENVIRONMENT'] == 'development':
 config['DATABASE']['POSTGRESQL']['URI'] = postgresql_uri(config['DATABASE']['POSTGRESQL']['URI'])
 
 # set up supporting data
-config['SQL_QUERY'] = {}
-config['SQL_QUERY']['rubber_wood'] = FileManagement.read_sql('supporting_data/sql/rubber_wood.sql')
-config['SQL_QUERY']['farm'] = FileManagement.read_sql('supporting_data/sql/farm.sql')
-config['SQL_QUERY']['farm_finder'] = FileManagement.read_sql('supporting_data/sql/farm_finder.sql')
+sql_path = 'supporting_data/sql'
+json_path = 'supporting_data/json'
 
-config['ATOMIC_WEIGHT'] = FileManagement.read_json('supporting_data/json/atomic_weight.json')
-config['UNIT_CONVERSION'] = FileManagement.read_json('supporting_data/json/unit_conversion.json')
-config['PLANTATION_METRICS'] = FileManagement.read_json('supporting_data/json/plantation_metrics.json')
+config['SQL_QUERY'] = {}
+config['SQL_QUERY']['farm'] = FileManagement.read_sql(f'{sql_path}/farm.sql')
+config['SQL_QUERY']['farm_finder'] = FileManagement.read_sql(f'{sql_path}/farm_finder.sql')
+
+config['ATOMIC_WEIGHT'] = FileManagement.read_json(f'{json_path}/atomic_weight.json')
+config['UNIT_CONVERSION'] = FileManagement.read_json(f'{json_path}/unit_conversion.json')
+config['PLANTATION_METRICS'] = FileManagement.read_json(f'{json_path}/plantation_metrics.json')
+config['STANLEY_PARK'] = FileManagement.read_json(f'{json_path}/stanley_park.json')

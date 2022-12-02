@@ -42,11 +42,27 @@ class FarmData:
         metrics = settings.PLANTATION_METRICS.plantationMetrics
         for d in data:  # pylint: disable=[E1133]
             spha = d['SphaSurvival']
+            genus = d['GenusName']
+            species = d['SpeciesName']
+
             if not spha:
                 spha = 1  # TODO: update spha
-            tree = PlantationMetrics.tree(data=d, metrics=metrics)
-            co2 = CarbonSequestration.tons_per_hectare_per_year(tree=tree, spha=spha*0.9, age=d['PlantAge'], settings=settings)
-            d['CarbonSequestered'] = co2
+
+            if not isinstance(genus, list):
+                tree = PlantationMetrics.tree(data=d, metrics=metrics)
+                co2 = CarbonSequestration.tons_per_hectare_per_year(tree=tree, spha=spha*0.9, age=d['PlantAge'], settings=settings)
+            else:
+                co2 = 0
+                temp = d.copy()
+                for g, s in zip(genus, species):
+                    temp['GenusName'] = g
+                    temp['SpeciesName'] = s
+                    tree = PlantationMetrics.tree(data=temp, metrics=metrics)
+                    co2 += CarbonSequestration.tons_per_hectare_per_year(tree=tree, spha=spha, age=d['PlantAge'], settings=settings)
+                co2 = co2/len(genus)
+
+            d['CarbonSequesteredPerYear'] = co2
+            d['CarbonSequesteredPerDay'] = co2/365
 
         return data
 
