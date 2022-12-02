@@ -40,14 +40,14 @@ if config['APP']['ENVIRONMENT'] == 'development':
 config['DATABASE']['POSTGRESQL']['URI'] = postgresql_uri(config['DATABASE']['POSTGRESQL']['URI'])
 
 # set up supporting data
-sql_path = 'supporting_data/sql'
-json_path = 'supporting_data/json'
+path_sql = 'supporting_data/sql'  # pylint: disable=[C0103]
+path_json = 'supporting_data/json'  # pylint: disable=[C0103]
 
 config['SQL_QUERY'] = {}
-config['SQL_QUERY']['farm'] = FileManagement.read_sql(f'{sql_path}/farm.sql')
-config['SQL_QUERY']['farm_finder'] = FileManagement.read_sql(f'{sql_path}/farm_finder.sql')
+config['SQL_QUERY']['farm'] = FileManagement.read_sql(f'{path_sql}/farm.sql')
+config['SQL_QUERY']['farm_finder'] = FileManagement.read_sql(f'{path_sql}/farm_finder.sql')
 
-config['ATOMIC_WEIGHT'] = FileManagement.read_json(f'{json_path}/atomic_weight.json')
-config['UNIT_CONVERSION'] = FileManagement.read_json(f'{json_path}/unit_conversion.json')
-config['PLANTATION_METRICS'] = FileManagement.read_json(f'{json_path}/plantation_metrics.json')
-config['STANLEY_PARK'] = FileManagement.read_json(f'{json_path}/stanley_park.json')
+config['ATOMIC_WEIGHT'] = FileManagement.read_json(f'{path_json}/atomic_weight.json')
+config['UNIT_CONVERSION'] = FileManagement.read_json(f'{path_json}/unit_conversion.json')
+config['PLANTATION_METRICS'] = FileManagement.read_json(f'{path_json}/plantation_metrics.json')
+config['STANLEY_PARK'] = FileManagement.read_json(f'{path_json}/stanley_park.json')

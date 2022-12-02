@@ -54,9 +54,9 @@ class FarmData:
             else:
                 co2 = 0
                 temp = d.copy()
-                for g, s in zip(genus, species):
-                    temp['GenusName'] = g
-                    temp['SpeciesName'] = s
+                for gene, spec in zip(genus, species):
+                    temp['GenusName'] = gene
+                    temp['SpeciesName'] = spec
                     tree = PlantationMetrics.tree(data=temp, metrics=metrics)
                     co2 += CarbonSequestration.tons_per_hectare_per_year(tree=tree, spha=spha, age=d['PlantAge'], settings=settings)
                 co2 = co2/len(genus)
