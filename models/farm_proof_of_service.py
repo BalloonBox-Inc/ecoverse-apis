@@ -14,15 +14,18 @@ class FarmProofOfService:
         endpoint = 'mapbox.satellite/{z}/{x}/{y}@2x.png'
         access_token = settings.GIS.MAPBOX.ACCESS_TOKEN
 
+        zoom = int(radius/25)  # TODO: calculate zoom based on radius size
+        zoom = 16
+
         url = f'{base_url}/{endpoint}?access_token={access_token}'
-        m = folium.Map(
+        gis = folium.Map(
             location=[lat, lng],
-            zoom_start=16,  # TODO: calculate zoom based on radius size
+            zoom_start=zoom,
             tiles=url,
             attr='Mapbox'
         )
 
         filename = f'temp_data/{farm_id}.html'
-        m.save(filename)
+        gis.save(filename)
 
         return FileManagement.read_file(filename)

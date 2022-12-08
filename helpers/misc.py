@@ -38,14 +38,15 @@ class DataFormatter:
 class FileManagement:
     '''File management class.'''
 
-    def read_file(filename: str) -> str | dict:
+    def read_file(filename: str) -> str | dict | None:
         '''Read HTML, JSON, SQL, and TXT files.'''
         _type = filename.split('.')[-1]
         with open(filename, mode='r', encoding='utf-8') as f:
+            if _type in ['html', 'sql', 'txt']:
+                return f.read()
             if _type == 'json':
                 return json.load(f)
-            elif _type in ['html', 'sql', 'txt']:
-                return f.read()
+        return None
 
 
 class JSONCustomEncoder(json.JSONEncoder):
