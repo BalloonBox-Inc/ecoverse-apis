@@ -1,8 +1,9 @@
-'''This module defines the HTTP request/response schemas for the /admin FastAPI routers.'''
+'''This module defines the HTTP request/response schemas for the /admin and /token FastAPI routers.'''
 
 from pydantic import BaseModel
 
 
+# Dependencies
 class AccessTokenData(BaseModel):
     '''Admin access token schema for dependencies.'''
 
@@ -16,26 +17,35 @@ class Admin(BaseModel):
     is_active: bool | None = None
 
 
+# Requests
 class CreateAdmin(BaseModel):
-    '''Router schema to admin/create'''
+    '''Router schema to /admin/create'''
 
     username: str
     password: str
 
 
 class UpdateAdmin(Admin):
-    '''Router schema to admin/update'''
+    '''Router schema to /admin/update'''
+
+
+# Responses
+class AccessTokenResponse(BaseModel):
+    '''Response schema to /token'''
+
+    accessToken: str | None = None
+    tokenType: str | None = None
 
 
 class AdminResponse(BaseModel):
-    '''A admin profile response model.'''
+    '''Response schema to /admin/*'''
 
-    message: str
-    data: dict
+    message: str | None = None
+    data: dict | None = None
 
 
 class AdminsResponse(BaseModel):
-    '''Multiple admin profiles response model.'''
+    '''Response schema to /admin'''
 
-    message: str
-    data: list
+    message: str | None = None
+    data: list | None = None

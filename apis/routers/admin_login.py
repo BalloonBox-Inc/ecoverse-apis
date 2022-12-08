@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
+from apis.schemas.admin import AccessTokenResponse
 from database.session import get_db
 from security.admin import authenticate_admin
 from security.tokens import JSONWebToken
@@ -12,7 +13,7 @@ from security.tokens import JSONWebToken
 router = APIRouter()
 
 
-@router.post('/token')
+@router.post('/token', response_model=AccessTokenResponse)
 async def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db)
@@ -30,7 +31,7 @@ async def login_for_access_token(
     # create JWT token
     access_token = JSONWebToken.create(data={'username': admin.username})
 
-    return dict(
-        access_token=access_token,
-        token_type='bearer'
+    return AccessTokenResponse(
+        accessToken=access_token,
+        tokenType='Bearer'
     )

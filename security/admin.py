@@ -14,7 +14,7 @@ from config import get_settings
 
 
 settings = get_settings()
-OAUTH2_SCHEME = OAuth2PasswordBearer(tokenUrl=f'{settings.API.PREFIX}/admin/token')
+OAUTH2_SCHEME = OAuth2PasswordBearer(tokenUrl=f'{settings.API.PREFIX}/token')
 
 
 def get_admin(db: Session, username: str):
