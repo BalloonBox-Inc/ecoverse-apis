@@ -130,3 +130,6 @@ dmypy.json
 
 # Apple macOS operating system
 .DS_Store
+
+# Temporary
+/temp_data
