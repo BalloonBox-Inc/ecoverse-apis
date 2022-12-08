@@ -44,10 +44,10 @@ path_sql = 'supporting_data/sql'  # pylint: disable=[C0103]
 path_json = 'supporting_data/json'  # pylint: disable=[C0103]
 
 config['SQL_QUERY'] = {}
-config['SQL_QUERY']['farm'] = FileManagement.read_sql(f'{path_sql}/farm.sql')
-config['SQL_QUERY']['farm_finder'] = FileManagement.read_sql(f'{path_sql}/farm_finder.sql')
+config['SQL_QUERY']['farm'] = FileManagement.read_file(f'{path_sql}/farm.sql')
+config['SQL_QUERY']['farm_finder'] = FileManagement.read_file(f'{path_sql}/farm_finder.sql')
 
-config['ATOMIC_WEIGHT'] = FileManagement.read_json(f'{path_json}/atomic_weight.json')
-config['UNIT_CONVERSION'] = FileManagement.read_json(f'{path_json}/unit_conversion.json')
-config['PLANTATION_METRICS'] = FileManagement.read_json(f'{path_json}/plantation_metrics.json')
-config['STANLEY_PARK'] = FileManagement.read_json(f'{path_json}/stanley_park.json')
+config['ATOMIC_WEIGHT'] = FileManagement.read_file(f'{path_json}/atomic_weight.json')
+config['UNIT_CONVERSION'] = FileManagement.read_file(f'{path_json}/unit_conversion.json')
+config['PLANTATION_METRICS'] = FileManagement.read_file(f'{path_json}/plantation_metrics.json')
+config['STANLEY_PARK'] = FileManagement.read_file(f'{path_json}/stanley_park.json')
