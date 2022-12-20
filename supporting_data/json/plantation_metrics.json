@@ -29,6 +29,36 @@
                 "unit": "%",
                 "sourceLocation": "section 3.2, table 2, page 4"
             }
+        },
+        {
+            "genusName": "tsuga",
+            "speciesName": "heterophylla",
+            "source": "supporting_data/pdf/tsuga_heterophylla.pdf",
+            "height": {
+                "measure": [31.7, 40.8, 50.0],
+                "unit": "m",
+                "sourceLocation": "table 1"
+            },
+            "diameterBreastHeight": {
+                "measure": [31, 40, 44],
+                "unit": "cm",
+                "sourceLocation": "table 1"
+            },
+            "rootDryMass": {
+                "measure": [0.125],
+                "unit": "%",
+                "sourceLocation": ""
+            },
+            "dryBiomass": {
+                "measure": [0.75],
+                "unit": "%",
+                "sourceLocation": ""
+            },
+            "carbonConcentration": {
+                "measure": [0.5],
+                "unit": "%",
+                "sourceLocation": ""
+            }
         }
     ]
 }
