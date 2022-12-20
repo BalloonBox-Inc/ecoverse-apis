@@ -3,7 +3,7 @@
 from pyaml_env import parse_config
 from dotenv import load_dotenv
 
-from helpers.misc import AppSettings, FileManagement
+from helpers.misc import AppSettings, DataFormatter, FileManagement
 from helpers.lru_caching import timed_lru_cache
 
 
@@ -14,13 +14,6 @@ load_dotenv()
 def get_settings() -> AppSettings:
     '''Set up settings in cache for the above lifetime, then refreshes it.'''
     return AppSettings(config)
-
-
-def postgresql_uri(uri: str) -> str:
-    '''Format PostgreSQL URI string.'''
-    if 'postgresql' not in uri:
-        uri = uri.replace('postgres', 'postgresql')
-    return uri
 
 
 # project settings
@@ -37,7 +30,7 @@ if config['APP']['ENVIRONMENT'] == 'development':
     config['APP']['TESTING'] = True
 
 # set up database
-config['DATABASE']['POSTGRESQL']['URI'] = postgresql_uri(config['DATABASE']['POSTGRESQL']['URI'])
+config['DATABASE']['POSTGRESQL']['URI'] = DataFormatter.postgresql(config['DATABASE']['POSTGRESQL']['URI'])
 
 # set up supporting data
 path_json = 'supporting_data/json'  # pylint: disable=[C0103]

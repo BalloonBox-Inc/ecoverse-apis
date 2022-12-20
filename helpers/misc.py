@@ -34,6 +34,12 @@ class DataFormatter:
         '''Convert a string case to camel style.'''
         return camelcase(s)
 
+    def postgresql(s: str) -> str:
+        '''Format PostgreSQL URI string.'''
+        if 'postgresql' not in s:  # pylint: disable=[E1135]
+            return s.replace('postgres', 'postgresql')
+        return s
+
 
 class FileManagement:
     '''File management class.'''
