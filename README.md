@@ -68,7 +68,7 @@ uvicorn main:app --reload
 
 ## API Specification
 
-[API documentation](http://127.0.0.1:8000/redoc) and [test environment](http://127.0.0.1:8000/docs) are available while running locally. **Make sure to not be in the production environment.**
+[Documentation](http://127.0.0.1:8000/redoc) and [test environment](http://127.0.0.1:8000/docs) are available while running locally. **Make sure to not be in the production environment.**
 
 ## Directory Structure
 
