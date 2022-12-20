@@ -23,7 +23,9 @@ The rate of carbon sequestration depends on the growth characteristics of the tr
 4. Determine the weight of CO2 sequestered by the tree over its lifetime.
 5. Determine the weight of CO2 sequestered by the tree per year.
 
-A more elaborated explanation can be found [here](./supporting_data/pdf/carbon_sequestration_model.pdf), and an illustrative image of the process [here](./supporting_data/png/carbon_sequestration_model.png).
+The following is an illustrative image of the process, and a descriptive model can be found [here](./supporting_data/pdf/carbon_sequestration_model.pdf).
+
+[<img src="./supporting_data/png/carbon_sequestration_model.png" width="100%"/>](./supporting_data/png/carbon_sequestration_model.png)
 
 ## Requirements
 
