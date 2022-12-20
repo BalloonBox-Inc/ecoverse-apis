@@ -12,7 +12,7 @@ class Throttling:
 
     def enable(app: FastAPI) -> FastAPI:
         '''Enable a limiter to control the amount of requests per minute based on IP address.'''
-        limiter = Limiter(key_func=get_remote_address, default_limits=['5/minute'])
+        limiter = Limiter(key_func=get_remote_address, default_limits=['5/minute', '2/second'])
         app.state.limiter = limiter
         app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
         app.add_middleware(SlowAPIMiddleware)
