@@ -1,15 +1,10 @@
 '''This module manages the farm data transformation on ETL process e.g. clean, apply business rules, check for data integrity, and create aggregates.'''
 
 import math
-import pandas as pd
 from pandas import DataFrame
 
-from helpers.misc import AppSettings, ResponseFormatter, DataFormatter
-from models.plantation_metrics import PlantationMetrics
+from helpers.misc import AppSettings, ResponseFormatter
 from models.carbon_sequestration import TreeCarbonSequestration, PlantationCarbonSequestration
-
-pd.set_option('display.max_columns', None)
-# pd.set_option('display.max_rows', None)
 
 
 class FarmData:
@@ -18,7 +13,7 @@ class FarmData:
     def add_farm_co2(data: list, settings: AppSettings) -> list:
         '''Add carbon sequestration per year and per day - FarmCO2y, FarmCO2d (keys) to list of objects.'''
 
-        for d in data:
+        for d in data:  # pylint: disable=[E1133]
             co2 = PlantationCarbonSequestration.plantation_carbon_sequestration(
                 co2=d['PlantCO2'],
                 spha=d['SphaSurvival']*0.9,

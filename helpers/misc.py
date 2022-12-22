@@ -1,12 +1,12 @@
 '''This module contains a miscellaneous collection of unit functions.'''
 
 import json
-from pandas import DataFrame
 from typing import Any
 from uuid import UUID
 from decimal import Decimal
 from datetime import date, datetime
 from caseconverter import camelcase
+from pandas import DataFrame
 
 
 class AppSettings():
@@ -43,11 +43,11 @@ class DataFormatter:
 
     def class_to_dict_list(lst: list) -> list:
         '''Convert a list of objects to a list of dicts.'''
-        return [item.__dict__ for item in lst]
+        return [item.__dict__ for item in lst]  # pylint: disable=[E1133]
 
     def column_string_to_list(data: DataFrame, column: str, sep: str) -> DataFrame:
         '''Convert string to list in a given dataframe column.'''
-        data[column] = data[column].apply(lambda x: x.split(sep))
+        data[column] = data[column].apply(lambda x: x.split(sep))  # pylint: disable=[E1137]
         return data
 
 
