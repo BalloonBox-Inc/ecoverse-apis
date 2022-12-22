@@ -75,5 +75,51 @@ uvicorn main:app --reload
 ## Directory Structure
 
 ```bash
+.
+├── .github/workflows
+│   └── on_push.yaml                # GitHub actions executed whenever a push is made (quality and test checks)
+├── .vscode
+│   └── settings.json               # VS Code setting preferences
 
+├── apis
+│   ├── routers/**.py               # [directory] multiple API routers
+│   ├── schemas/**.py               # [directory] multiple API schemas (http request/response formats)
+│   └── middleware.py               # API routers aggregator
+├── database
+│   ├── crud.py                     # Create, Read, Update, Delete (CRUD) operations to manage data elements of relational databases
+│   ├── models.py                   # database tables
+│   ├── session.py                  # database connection setup
+│   └── startup.py                  # database initial data insertion.
+├── helpers
+│   ├── api_exceptions.py           # API exceptions settings
+│   ├── api_routers.py              # include API routers
+│   ├── api_throttling.py           # API throttling settings
+│   ├── http_requests.py            # HTTP requests settings and error handling
+│   ├── lru_caching.py              # LRU cache decorator settings
+│   └── misc.py                     # miscellaneous collection of unit functions
+├── models
+│   ├── carbon_sequestration.py     # carbon sequestration algo
+│   ├── farm_data_transformation.py # farm data transformation on ETL process
+│   ├── farm_proof_of_service.py    # farm proof of service, such as real-time satellite photo
+│   └── plantation_metrics.py       # platation metrics based on a given tree
+├── security
+│   ├── admin.py                    # admin authentication setup
+│   ├── dependencies.py             # required inejctions (security and authentication) to happen before running an API router
+│   ├── hashing.py                  # encrypting and verifying signatures
+│   └── tokens.py                   # JWT access tokens
+├── supporting_data
+│   ├── json/**.py                  # [directory] multiple JSON files
+│   ├── pdf/**.py                   # [directory] multiple PDF files
+│   └── png/**.py                   # [directory] multiple PNG files
+├── .env                            # project environment variables
+├── .flake8                         # Flake8 settings and coding standards on a module-by-module basis
+├── .gitignore                      # files/directories to be ignored by GitHub when commiting code
+├── .pre-commit-config.yaml         # pre-commit hooks settings
+├── .pylintrc                       # Pylint settings and coding standards on a module-by-module basis
+├── config.py                       # project settings
+├── config.yaml                     # project settings
+├── main.py                         # Ecoverse DB application
+├── Procfile                        # [deployment] Heroku commands that are executed by the dyno's app on startup
+├── README.md                       # this project guide
+└── requirements.txt                # required Python libraries, modules, and packages to run and deploy the project
 ```
