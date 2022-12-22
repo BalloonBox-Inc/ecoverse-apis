@@ -108,6 +108,34 @@ def create_object(
         db.close()
 
 
+def create_objects(
+    db: Session,
+    data: list,
+    exc_status_code: status = status.HTTP_409_CONFLICT,
+    exc_message: str = 'Unable to add objects to the database.'
+):
+    '''
+    Add multiple objects to the database.
+
+        :param db [generator]: Database session.
+        :param data [list[[orm]]: List of declarative base objects.
+        :param exc_status_code [int]: Exception HTTP status code.
+        :param exc_message [str]: Exception error message.
+    '''
+    try:
+        db.add_all(data)
+        db.commit()
+
+    except SQLAlchemyError as e:
+        db.rollback()
+        raise ResponseValidationError(
+            status_code=exc_status_code,
+            message=exc_message) from e
+
+    finally:
+        db.close()
+
+
 def update_object(
     db: Session,
     table: object,
