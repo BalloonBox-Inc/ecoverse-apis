@@ -1,6 +1,7 @@
 '''This module contains a miscellaneous collection of unit functions.'''
 
 import json
+from pandas import DataFrame
 from typing import Any
 from uuid import UUID
 from decimal import Decimal
@@ -39,6 +40,15 @@ class DataFormatter:
         if 'postgresql' not in s:  # pylint: disable=[E1135]
             return s.replace('postgres', 'postgresql')
         return s
+
+    def class_to_dict_list(lst: list) -> list:
+        '''Convert a list of objects to a list of dicts.'''
+        return [item.__dict__ for item in lst]
+
+    def column_string_to_list(data: DataFrame, column: str, sep: str) -> DataFrame:
+        '''Convert string to list in a given dataframe column.'''
+        data[column] = data[column].apply(lambda x: x.split(sep))
+        return data
 
 
 class FileManagement:

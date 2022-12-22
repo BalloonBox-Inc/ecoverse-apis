@@ -1,18 +1,9 @@
 '''This module defines all database tables.'''
 
-from enum import Enum as Enumerations
-from sqlalchemy import Column, Boolean, Integer, String, DateTime, Enum
+from sqlalchemy import Column, Boolean, Integer, Float, String, DateTime
 from sqlalchemy.sql import func
 
 from database.session import Base
-
-
-class Status(Enumerations):
-    '''Define allowed status values.'''
-
-    APPROVED = 'approved'
-    DECLINED = 'declined'
-    PENDING = 'pending'
 
 
 class AdminsTable(Base):
@@ -28,12 +19,28 @@ class AdminsTable(Base):
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
 
-class ExampleTable(Base):
-    '''Define example as a database table.'''
+class FarmsTable(Base):
+    '''Define farms as a database table.'''
 
-    __tablename__ = 'example'
+    __tablename__ = 'farms'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    status = Column(Enum(Status))
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
-    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    Id = Column(Integer, primary_key=True, autoincrement=True)
+    GroupScheme = Column(String, nullable=False)
+    Country = Column(String, nullable=False)
+    Province = Column(String, nullable=False)
+    Latitude = Column(Float, nullable=False)
+    Longitude = Column(Float, nullable=False)
+    FarmId = Column(String, nullable=False)
+    FarmSize = Column(Float, nullable=False)
+    UnitNumber = Column(String, nullable=False)
+    EffectiveArea = Column(Float, nullable=False)
+    AreaTypeName = Column(String, nullable=False)
+    ProductGroup = Column(String, nullable=False)
+    GenusName = Column(String, nullable=False)
+    SpeciesName = Column(String, nullable=False)
+    PlantAge = Column(Float, nullable=False)
+    SphaSurvival = Column(Float, nullable=False)
+    PlannedPlantDT = Column(String, nullable=False)
+    IsActive = Column(Boolean, nullable=False)
+    CreatedAt = Column(DateTime(timezone=True), server_default=func.now())
+    UpdatedAt = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())

@@ -2,33 +2,36 @@
 
 import math
 import pandas as pd
+from pandas import DataFrame
 
-from helpers.misc import AppSettings, ResponseFormatter
-from models.carbon_sequestration import CarbonSequestration
+from helpers.misc import AppSettings, ResponseFormatter, DataFormatter
 from models.plantation_metrics import PlantationMetrics
+from models.carbon_sequestration import TreeCarbonSequestration, PlantationCarbonSequestration
+
+pd.set_option('display.max_columns', None)
+# pd.set_option('display.max_rows', None)
 
 
 class FarmData:
     '''Farm Data class.'''
 
-    def groupby_farm_id(data: list) -> list:
-        '''Group by farms by their farm ID.'''
+    def add_farm_co2(data: list, settings: AppSettings) -> list:
+        '''Add carbon sequestration per year and per day - FarmCO2y, FarmCO2d (keys) to list of objects.'''
 
-        df = pd.DataFrame(data)
-        dfg = df.groupby([
-            'FarmId', 'Latitude', 'Longitude', 'Province', 'FarmSize', 'GroupScheme', 'ProductGroup', 'GenusName', 'SpeciesName'
-        ]).agg({
-            'UnitNumber': 'count',
-            'EffectiveArea': 'sum',
-            'PlantAge': 'mean',
-            'SphaSurvival': 'sum'  # TODO: review
-        })
-        dfg.reset_index(drop=False, inplace=True)
+        for d in data:
+            co2 = PlantationCarbonSequestration.plantation_carbon_sequestration(
+                co2=d['PlantCO2'],
+                spha=d['SphaSurvival']*0.9,
+                age=d['PlantAge'],
+                settings=settings
+            )
+            d['FarmCO2y'] = co2
+            d['FarmCO2d'] = co2/365
 
-        return dfg.to_dict('records')
+        return data
 
-    def calc_radius(data: list, settings: AppSettings) -> list:
-        '''Calculate the farm radius based on its area size.'''
+    def add_farm_radius(data: list, settings: AppSettings) -> list:
+        '''Add farm radius to list of objects based on its area size.'''
 
         hectare = settings.UNIT_CONVERSION.area.haM2
         for d in data:  # pylint: disable=[E1133]
@@ -36,37 +39,71 @@ class FarmData:
 
         return data
 
-    def calc_co2(data: list, settings: AppSettings):
-        '''Calculate the farm carbon sequestration based on its plantation characteristics.'''
+    def add_tree_co2(data: list, settings: AppSettings) -> list:
+        '''Add carbon sequestration - PlantCO2 (key) to list of objects.'''
+        tree_co2 = FarmData.calc_tree_co2(settings=settings)
+
+        df = DataFrame(data)
+        df = FarmData.remove_hybrids(data=df)
+        df['PlantCO2'] = df['SpeciesName'].map(tree_co2)
+
+        return df.to_dict('records')
+
+    def calc_tree_co2(settings: AppSettings) -> dict:
+        '''Calculate the carbon sequestration based on tree characteristics.'''
 
         metrics = settings.PLANTATION_METRICS.plantationMetrics
-        for d in data:  # pylint: disable=[E1133]
-            spha = d['SphaSurvival']
-            genus = d['GenusName']
-            species = d['SpeciesName']
+        for tree in metrics:
+            co2_seq = TreeCarbonSequestration.tree_carbon_sequestration(tree=tree, settings=settings)
+            tree.update({'carbonSequestration': {tree['speciesName']: co2_seq}})
+        metrics = [d['carbonSequestration'] for d in metrics]
 
-            if not spha:
-                spha = 1  # TODO: update spha
+        tree_co2 = {}
+        for d in metrics:
+            tree_co2.update(d)
 
-            if not isinstance(genus, list):
-                tree = PlantationMetrics.tree(data=d, metrics=metrics)
-                co2 = CarbonSequestration.tons_per_hectare_per_year(tree=tree, spha=spha*0.9, age=d['PlantAge'], settings=settings)
-            else:
-                co2 = 0
-                temp = d.copy()
-                for gene, spec in zip(genus, species):
-                    temp['GenusName'] = gene
-                    temp['SpeciesName'] = spec
-                    tree = PlantationMetrics.tree(data=temp, metrics=metrics)
-                    co2 += CarbonSequestration.tons_per_hectare_per_year(tree=tree, spha=spha, age=d['PlantAge'], settings=settings)
-                co2 = co2/len(genus)
+        return tree_co2
 
-            d['CarbonSequesteredPerYear'] = co2
-            d['CarbonSequesteredPerDay'] = co2/365
+    def groupby_farm_id(data: list) -> list:
+        '''Group by farm id numbers.'''
 
-        return data
+        df = DataFrame(data)
+        dfg = df.groupby(['FarmId', 'Latitude', 'Longitude', 'Province', 'FarmSize', 'GroupScheme']).agg({
+            'UnitNumber': 'count',
+            'ProductGroup': 'count',  # TODO: it must be unique count
+            'EffectiveArea': 'mean',  # TODO: review
+            'PlantCO2': 'mean',  # TODO: review
+            'PlantAge': 'mean',  # TODO: review
+            'SphaSurvival': 'mean'  # TODO: review
+            # TODO: add products list
+        })
+        dfg.reset_index(drop=False, inplace=True)
 
-    def format(data: list) -> list:
+        return dfg.to_dict('records')
+
+    def groupby_farm_unit(data: list) -> list:
+        '''Group by farm unit numbers.'''
+
+        df = DataFrame(data)
+        dfg = df.groupby(['FarmId', 'Latitude', 'Longitude', 'Province', 'FarmSize', 'GroupScheme', 'UnitNumber', 'ProductGroup']).agg({
+            'SpeciesName': 'count',
+            'EffectiveArea': 'mean',
+            'PlantCO2': 'mean',
+            'PlantAge': 'mean',
+            'SphaSurvival': 'sum'  # TODO: review
+            # TODO: add genus and species name
+        })
+        dfg.reset_index(drop=False, inplace=True)
+
+        # dfg = DataFormatter.column_string_to_list(data=dfg, column='SpeciesName', sep=',')
+
+        return dfg.to_dict('records')
+
+    def remove_hybrids(data: DataFrame) -> DataFrame:
+        '''Remove hybrid trees.'''
+        return data[(data['SpeciesName'] != 'clones') & (data['SpeciesName'] != 'GxN')]
+
+    def response_format(data: list) -> list:
         '''Format farm data keys and values.'''
 
         farm = data.copy()
