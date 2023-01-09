@@ -1,0 +1,11 @@
+{
+  "editor.formatOnSave": true,
+  "editor.wordWrap": "on",
+  "files.trimTrailingWhitespace": true,
+  "python.formatting.provider": "autopep8",
+  "python.formatting.autopep8Args": ["--max-line-length", "160"],
+  "python.linting.enabled": true,
+  "python.testing.pytestArgs": ["tests"],
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": true
+}

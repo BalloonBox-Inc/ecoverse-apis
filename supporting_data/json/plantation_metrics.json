@@ -1,0 +1,340 @@
+{
+    "plantationMetrics": [
+        {
+            "genusName": "acacia",
+            "speciesName": "mearnsii",
+            "height": {
+                "measure": [19.8, 20.1, 20.9],
+                "unit": "m"
+            },
+            "diameterBreastHeight": {
+                "measure": [23.7, 24.6, 28.4],
+                "unit": "cm"
+            },
+            "rootDryMass": {
+                "measure": [0.14, 0.15],
+                "unit": "%"
+            },
+            "dryBiomass": {
+                "measure": [0.74, 0.76],
+                "unit": "%"
+            },
+            "carbonConcentration": {
+                "measure": [0.523, 0.503, 0.502, 0.498, 0.489],
+                "unit": "%"
+            }
+        },
+        {
+            "genusName": "eucalyptus",
+            "speciesName": "benthamii",
+            "height": {
+                "measure": [19.8, 20.1, 20.9],
+                "unit": "m"
+            },
+            "diameterBreastHeight": {
+                "measure": [23.7, 24.6, 28.4],
+                "unit": "cm"
+            },
+            "rootDryMass": {
+                "measure": [0.14, 0.15],
+                "unit": "%"
+            },
+            "dryBiomass": {
+                "measure": [0.74, 0.76],
+                "unit": "%"
+            },
+            "carbonConcentration": {
+                "measure": [0.523, 0.503, 0.502, 0.498, 0.489],
+                "unit": "%"
+            }
+        },
+        {
+            "genusName": "eucalyptus",
+            "speciesName": "dunnii",
+            "height": {
+                "measure": [19.8, 20.1, 20.9],
+                "unit": "m"
+            },
+            "diameterBreastHeight": {
+                "measure": [23.7, 24.6, 28.4],
+                "unit": "cm"
+            },
+            "rootDryMass": {
+                "measure": [0.14, 0.15],
+                "unit": "%"
+            },
+            "dryBiomass": {
+                "measure": [0.74, 0.76],
+                "unit": "%"
+            },
+            "carbonConcentration": {
+                "measure": [0.523, 0.503, 0.502, 0.498, 0.489],
+                "unit": "%"
+            }
+        },
+        {
+            "genusName": "eucalyptus",
+            "speciesName": "fastigata",
+            "height": {
+                "measure": [19.8, 20.1, 20.9],
+                "unit": "m"
+            },
+            "diameterBreastHeight": {
+                "measure": [23.7, 24.6, 28.4],
+                "unit": "cm"
+            },
+            "rootDryMass": {
+                "measure": [0.14, 0.15],
+                "unit": "%"
+            },
+            "dryBiomass": {
+                "measure": [0.74, 0.76],
+                "unit": "%"
+            },
+            "carbonConcentration": {
+                "measure": [0.523, 0.503, 0.502, 0.498, 0.489],
+                "unit": "%"
+            }
+        },
+        {
+            "genusName": "eucalyptus",
+            "speciesName": "grandis",
+            "height": {
+                "measure": [19.8, 20.1, 20.9],
+                "unit": "m"
+            },
+            "diameterBreastHeight": {
+                "measure": [23.7, 24.6, 28.4],
+                "unit": "cm"
+            },
+            "rootDryMass": {
+                "measure": [0.14, 0.15],
+                "unit": "%"
+            },
+            "dryBiomass": {
+                "measure": [0.74, 0.76],
+                "unit": "%"
+            },
+            "carbonConcentration": {
+                "measure": [0.523, 0.503, 0.502, 0.498, 0.489],
+                "unit": "%"
+            }
+        },
+        {
+            "genusName": "eucalyptus",
+            "speciesName": "macarthurii",
+            "height": {
+                "measure": [19.8, 20.1, 20.9],
+                "unit": "m"
+            },
+            "diameterBreastHeight": {
+                "measure": [23.7, 24.6, 28.4],
+                "unit": "cm"
+            },
+            "rootDryMass": {
+                "measure": [0.14, 0.15],
+                "unit": "%"
+            },
+            "dryBiomass": {
+                "measure": [0.74, 0.76],
+                "unit": "%"
+            },
+            "carbonConcentration": {
+                "measure": [0.523, 0.503, 0.502, 0.498, 0.489],
+                "unit": "%"
+            }
+        },
+        {
+            "genusName": "eucalyptus",
+            "speciesName": "nitens",
+            "height": {
+                "measure": [19.8, 20.1, 20.9],
+                "unit": "m"
+            },
+            "diameterBreastHeight": {
+                "measure": [23.7, 24.6, 28.4],
+                "unit": "cm"
+            },
+            "rootDryMass": {
+                "measure": [0.14, 0.15],
+                "unit": "%"
+            },
+            "dryBiomass": {
+                "measure": [0.74, 0.76],
+                "unit": "%"
+            },
+            "carbonConcentration": {
+                "measure": [0.523, 0.503, 0.502, 0.498, 0.489],
+                "unit": "%"
+            }
+        },
+        {
+            "genusName": "hevea",
+            "speciesName": "brasiliensis",
+            "height": {
+                "measure": [19.8, 20.1, 20.9],
+                "unit": "m"
+            },
+            "diameterBreastHeight": {
+                "measure": [23.7, 24.6, 28.4],
+                "unit": "cm"
+            },
+            "rootDryMass": {
+                "measure": [0.14, 0.15],
+                "unit": "%"
+            },
+            "dryBiomass": {
+                "measure": [0.74, 0.76],
+                "unit": "%"
+            },
+            "carbonConcentration": {
+                "measure": [0.523, 0.503, 0.502, 0.498, 0.489],
+                "unit": "%"
+            }
+        },
+        {
+            "genusName": "pinus",
+            "speciesName": "caribaea",
+            "height": {
+                "measure": [19.8, 20.1, 20.9],
+                "unit": "m"
+            },
+            "diameterBreastHeight": {
+                "measure": [23.7, 24.6, 28.4],
+                "unit": "cm"
+            },
+            "rootDryMass": {
+                "measure": [0.14, 0.15],
+                "unit": "%"
+            },
+            "dryBiomass": {
+                "measure": [0.74, 0.76],
+                "unit": "%"
+            },
+            "carbonConcentration": {
+                "measure": [0.523, 0.503, 0.502, 0.498, 0.489],
+                "unit": "%"
+            }
+        },
+        {
+            "genusName": "pinus",
+            "speciesName": "elliottii",
+            "height": {
+                "measure": [19.8, 20.1, 20.9],
+                "unit": "m"
+            },
+            "diameterBreastHeight": {
+                "measure": [23.7, 24.6, 28.4],
+                "unit": "cm"
+            },
+            "rootDryMass": {
+                "measure": [0.14, 0.15],
+                "unit": "%"
+            },
+            "dryBiomass": {
+                "measure": [0.74, 0.76],
+                "unit": "%"
+            },
+            "carbonConcentration": {
+                "measure": [0.523, 0.503, 0.502, 0.498, 0.489],
+                "unit": "%"
+            }
+        },
+        {
+            "genusName": "pinus",
+            "speciesName": "patula",
+            "height": {
+                "measure": [19.8, 20.1, 20.9],
+                "unit": "m"
+            },
+            "diameterBreastHeight": {
+                "measure": [23.7, 24.6, 28.4],
+                "unit": "cm"
+            },
+            "rootDryMass": {
+                "measure": [0.14, 0.15],
+                "unit": "%"
+            },
+            "dryBiomass": {
+                "measure": [0.74, 0.76],
+                "unit": "%"
+            },
+            "carbonConcentration": {
+                "measure": [0.523, 0.503, 0.502, 0.498, 0.489],
+                "unit": "%"
+            }
+        },
+        {
+            "genusName": "pinus",
+            "speciesName": "taeda",
+            "height": {
+                "measure": [19.8, 20.1, 20.9],
+                "unit": "m"
+            },
+            "diameterBreastHeight": {
+                "measure": [23.7, 24.6, 28.4],
+                "unit": "cm"
+            },
+            "rootDryMass": {
+                "measure": [0.14, 0.15],
+                "unit": "%"
+            },
+            "dryBiomass": {
+                "measure": [0.74, 0.76],
+                "unit": "%"
+            },
+            "carbonConcentration": {
+                "measure": [0.523, 0.503, 0.502, 0.498, 0.489],
+                "unit": "%"
+            }
+        },
+        {
+            "genusName": "pinus",
+            "speciesName": "tecunumanii",
+            "height": {
+                "measure": [19.8, 20.1, 20.9],
+                "unit": "m"
+            },
+            "diameterBreastHeight": {
+                "measure": [23.7, 24.6, 28.4],
+                "unit": "cm"
+            },
+            "rootDryMass": {
+                "measure": [0.14, 0.15],
+                "unit": "%"
+            },
+            "dryBiomass": {
+                "measure": [0.74, 0.76],
+                "unit": "%"
+            },
+            "carbonConcentration": {
+                "measure": [0.523, 0.503, 0.502, 0.498, 0.489],
+                "unit": "%"
+            }
+        },
+        {
+            "genusName": "tsuga",
+            "speciesName": "heterophylla",
+            "height": {
+                "measure": [31.7, 40.8, 50.0],
+                "unit": "m"
+            },
+            "diameterBreastHeight": {
+                "measure": [31, 40, 44],
+                "unit": "cm"
+            },
+            "rootDryMass": {
+                "measure": [0.125],
+                "unit": "%"
+            },
+            "dryBiomass": {
+                "measure": [0.75],
+                "unit": "%"
+            },
+            "carbonConcentration": {
+                "measure": [0.5],
+                "unit": "%"
+            }
+        }
+    ]
+}
