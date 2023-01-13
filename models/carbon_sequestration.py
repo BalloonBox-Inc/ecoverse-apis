@@ -1,5 +1,5 @@
 '''This module calculates carbon sequestration based on the following:
-./supporting_data/pdf/carbon_sequestration.pdf'''
+./docs/pdf/carbon_sequestration.pdf'''
 
 from helpers.misc import AppSettings, DataAggregator
 from models.plantation_metrics import PlantationMetrics

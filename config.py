@@ -33,7 +33,7 @@ if config['APP']['ENVIRONMENT'] == 'development':
 config['DATABASE']['POSTGRESQL']['URI'] = DataFormatter.postgresql(config['DATABASE']['POSTGRESQL']['URI'])
 
 # set up supporting data
-path_json = 'supporting_data/json'  # pylint: disable=[C0103]
+path_json = 'docs/json'  # pylint: disable=[C0103]
 config['ATOMIC_WEIGHT'] = FileManagement.read_file(f'{path_json}/atomic_weight.json')
 config['UNIT_CONVERSION'] = FileManagement.read_file(f'{path_json}/unit_conversion.json')
 config['PLANTATION_METRICS'] = FileManagement.read_file(f'{path_json}/plantation_metrics.json')
