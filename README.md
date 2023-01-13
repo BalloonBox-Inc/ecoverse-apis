@@ -23,9 +23,9 @@ The rate of carbon sequestration depends on the growth characteristics of the tr
 4. Determine the weight of CO2 sequestered by the tree over its lifetime.
 5. Determine the weight of CO2 sequestered by the tree per year.
 
-The following is an illustrative image of the process, and a descriptive model can be found [here](./supporting_data/pdf/carbon_sequestration_model.pdf).
+The following is an illustrative image of the process, and a descriptive model can be found [here](./docs/pdf/carbon_sequestration_model.pdf).
 
-[<img src="./supporting_data/png/carbon_sequestration_model.png" width="100%"/>](./supporting_data/png/carbon_sequestration_model.png)
+[<img src="./docs/png/carbon_sequestration_model.png" width="100%"/>](./docs/png/carbon_sequestration_model.png)
 
 ## Requirements
 
@@ -90,6 +90,10 @@ uvicorn main:app --reload
 │   ├── models.py                   # database tables
 │   ├── session.py                  # database connection setup
 │   └── startup.py                  # database initial data insertion.
+├── docs
+│   ├── json/**.py                  # [directory] multiple JSON files
+│   ├── pdf/**.py                   # [directory] multiple PDF files
+│   └── png/**.py                   # [directory] multiple PNG files
 ├── helpers
 │   ├── api_exceptions.py           # API exceptions settings
 │   ├── api_routers.py              # include API routers
@@ -107,10 +111,6 @@ uvicorn main:app --reload
 │   ├── dependencies.py             # required inejctions (security and authentication) to happen before running an API router
 │   ├── hashing.py                  # encrypting and verifying signatures
 │   └── tokens.py                   # JWT access tokens
-├── supporting_data
-│   ├── json/**.py                  # [directory] multiple JSON files
-│   ├── pdf/**.py                   # [directory] multiple PDF files
-│   └── png/**.py                   # [directory] multiple PNG files
 ├── .env                            # project environment variables
 ├── .flake8                         # Flake8 settings and coding standards on a module-by-module basis
 ├── .gitignore                      # files/directories to be ignored by GitHub when commiting code

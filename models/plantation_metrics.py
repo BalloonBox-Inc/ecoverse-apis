@@ -1,5 +1,5 @@
 '''This module finds the appopriate metrics based on a given tree from the following:
-./supporting_data/json/plantation_metrics.json'''
+./docs/json/plantation_metrics.json'''
 
 from helpers.misc import AppSettings, DataAggregator, UnitMeasureConversion
 
