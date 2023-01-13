@@ -80,7 +80,6 @@ uvicorn main:app --reload
 │   └── on_push.yaml                # GitHub actions executed whenever a push is made (quality and test checks)
 ├── .vscode
 │   └── settings.json               # VS Code setting preferences
-
 ├── apis
 │   ├── routers/**.py               # [directory] multiple API routers
 │   ├── schemas/**.py               # [directory] multiple API schemas (http request/response formats)
