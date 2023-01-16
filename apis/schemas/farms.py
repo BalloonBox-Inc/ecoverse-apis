@@ -18,7 +18,6 @@ class FarmResponse(BaseModel):
     longitude: float | None = None
     farmSize: float | None = None  # hectares
     farmRadius: float | None = None  # meters
-    unitNumber: int | None = None  # farm units count
     effectiveArea: float | None = None  # hectares
     sphaSurvival: float | None = None  # stems per hectare
     treesPlanted: int | None = None  # estimated
