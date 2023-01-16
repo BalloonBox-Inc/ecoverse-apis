@@ -19,7 +19,6 @@ class FarmResponse(BaseModel):
     farmSize: float | None = None  # hectares
     farmRadius: float | None = None  # meters
     effectiveArea: float | None = None  # hectares
-    sphaSurvival: float | None = None  # stems per hectare
     treesPlanted: int | None = None  # estimated
     plantAge: float | None = None  # average
     farmCo2y: float | None = None  # tons per hectare per year
