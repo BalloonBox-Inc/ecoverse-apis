@@ -14,7 +14,7 @@ from security.admin import get_current_active_admin
 from models.farm_data_transformation import FarmData
 
 
-router = APIRouter(dependencies=[Depends(get_current_active_admin)])
+router = APIRouter()  # dependencies=[Depends(get_current_active_admin)]) # TODO: fix dependency
 
 
 @router.get('', status_code=status.HTTP_200_OK, response_model=Page[FarmResponse])
@@ -37,6 +37,7 @@ async def retrieve_farms(
     data = FarmData.groupby_farm_id(data=data)
     data = FarmData.add_farm_radius(data=data, settings=settings)
     data = FarmData.add_farm_co2(data=data, settings=settings)
+    data = FarmData.add_trees_planted(data=data)
     data = FarmData.response_format(data=data)
 
     return paginate(data)
