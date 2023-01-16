@@ -20,6 +20,6 @@ class FarmResponse(BaseModel):
     unitNumber: int | None = None  # farm units count
     effectiveArea: float | None = None  # hectares
     sphaSurvival: float | None = None  # stems per hectare
+    treesPlanted: int | None = None  # estimated
     plantAge: float | None = None  # average
     farmCo2y: float | None = None  # tons per hectare per year
-    farmCo2d: float | None = None  # tons per hectare per day

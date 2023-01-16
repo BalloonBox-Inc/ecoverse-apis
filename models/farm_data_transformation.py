@@ -10,8 +10,14 @@ from models.carbon_sequestration import TreeCarbonSequestration, PlantationCarbo
 class FarmData:
     '''Farm Data class.'''
 
+    def add_trees_planted(data: list) -> list:
+        '''Add estimated number of trees planted.'''
+        for d in data:
+            d['TreesPlanted'] = int(d['SphaSurvival']*d['EffectiveArea'])
+        return data
+
     def add_farm_co2(data: list, settings: AppSettings) -> list:
-        '''Add carbon sequestration per year and per day - FarmCO2y, FarmCO2d (keys) to list of objects.'''
+        '''Add carbon sequestration per year and per day - FarmCO2y to list of objects.'''
 
         for d in data:  # pylint: disable=[E1133]
             co2 = PlantationCarbonSequestration.plantation_carbon_sequestration(
@@ -21,7 +27,6 @@ class FarmData:
                 settings=settings
             )
             d['FarmCO2y'] = co2
-            d['FarmCO2d'] = co2/365
 
         return data
 
