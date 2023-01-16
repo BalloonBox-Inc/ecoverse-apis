@@ -12,6 +12,7 @@ class FarmResponse(BaseModel):
     productGroup: str | None = None
     genusName: str | list | None = None
     speciesName: str | list | None = None
+    country: str | None = None
     province: str | None = None
     latitude: float | None = None
     longitude: float | None = None

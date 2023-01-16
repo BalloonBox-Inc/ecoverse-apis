@@ -68,7 +68,7 @@ class FarmData:
         '''Group by farm id numbers.'''
 
         df = DataFrame(data)
-        dfg = df.groupby(['FarmId', 'Latitude', 'Longitude', 'Province', 'FarmSize', 'GroupScheme']).agg({
+        dfg = df.groupby(['FarmId', 'Latitude', 'Longitude', 'Country', 'Province', 'FarmSize', 'GroupScheme']).agg({
             'UnitNumber': 'count',
             'ProductGroup': 'count',  # TODO: it must be unique count
             'EffectiveArea': 'mean',  # TODO: review
@@ -85,7 +85,7 @@ class FarmData:
         '''Group by farm unit numbers.'''
 
         df = DataFrame(data)
-        dfg = df.groupby(['FarmId', 'Latitude', 'Longitude', 'Province', 'FarmSize', 'GroupScheme', 'UnitNumber', 'ProductGroup']).agg({
+        dfg = df.groupby(['FarmId', 'Latitude', 'Longitude', 'Country', 'Province', 'FarmSize', 'GroupScheme', 'UnitNumber', 'ProductGroup']).agg({
             'SpeciesName': 'count',
             'EffectiveArea': 'mean',
             'PlantCO2': 'mean',
