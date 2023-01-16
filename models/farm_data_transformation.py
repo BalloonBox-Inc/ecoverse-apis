@@ -10,12 +10,6 @@ from models.carbon_sequestration import TreeCarbonSequestration, PlantationCarbo
 class FarmData:
     '''Farm Data class.'''
 
-    def add_trees_planted(data: list) -> list:
-        '''Add estimated number of trees planted.'''
-        for d in data:
-            d['TreesPlanted'] = int(d['SphaSurvival']*d['EffectiveArea'])
-        return data
-
     def add_farm_co2(data: list, settings: AppSettings) -> list:
         '''Add carbon sequestration per year and per day - FarmCO2y to list of objects.'''
 
@@ -48,6 +42,12 @@ class FarmData:
         df['PlantCO2'] = df['SpeciesName'].map(tree_co2)
 
         return df.to_dict('records')
+
+    def add_trees_planted(data: list) -> list:
+        '''Add estimated number of trees planted.'''
+        for d in data:
+            d['TreesPlanted'] = int(d['SphaSurvival']*d['EffectiveArea'])
+        return data
 
     def calc_tree_co2(settings: AppSettings) -> dict:
         '''Calculate the carbon sequestration based on tree characteristics.'''
