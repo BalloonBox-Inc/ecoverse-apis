@@ -56,6 +56,7 @@ class NFTsTable(Base):
     NftId = Column(String, unique=True, nullable=False)
     NftName = Column(String, nullable=False)
     NftArea = Column(Float, nullable=False)
+    NftValueSol = Column(Float, nullable=False)
     Geolocation = Column(JSON, nullable=False)
     TileCount = Column(Integer, nullable=False)
     CarbonUrl = Column(String, nullable=False)
@@ -68,3 +69,14 @@ class NFTsTable(Base):
     PlantStatus = Column(String, nullable=False)
     CreatedAt = Column(DateTime(timezone=True), server_default=func.now())
     UpdatedAt = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+
+class PricingTable(Base):
+
+    '''Define pricing as a database table.'''
+
+    __tablename__ = 'pricing'
+
+    Id = Column(Integer, primary_key=True, autoincrement=True)
+    GroupScheme = Column(String, unique=True, nullable=False)
+    HectareUsd = Column(Float, nullable=False)

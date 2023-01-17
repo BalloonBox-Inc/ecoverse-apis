@@ -9,6 +9,7 @@ class FarmResponse(BaseModel):
 
     farmId: str | None = None
     groupScheme: str | None = None
+    hectareUsd: float | None = None
     productGroup: str | None = None
     genusName: list | None = None
     speciesName: list | None = None

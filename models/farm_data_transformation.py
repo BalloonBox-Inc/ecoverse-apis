@@ -33,6 +33,12 @@ class FarmData:
 
         return data
 
+    def add_hectare_price(data: list, ha: list) -> list:
+        ha = FarmData.clean_hectare_price(data=ha)
+        for d in data:
+            d['HectareUsd'] = ha[d['GroupScheme']]
+        return data
+
     def add_tree_co2(data: list, settings: AppSettings) -> list:
         '''Add carbon sequestration - PlantCO2 (key) to list of objects.'''
         tree_co2 = FarmData.calc_tree_co2(settings=settings)
@@ -63,6 +69,12 @@ class FarmData:
             tree_co2.update(d)
 
         return tree_co2
+
+    def clean_hectare_price(data: list) -> dict:
+        price = {}
+        for d in data:
+            price[d['GroupScheme']] = d['HectareUsd']
+        return price
 
     def groupby_farm_id(data: list) -> list:
         '''Group by farm id numbers.'''

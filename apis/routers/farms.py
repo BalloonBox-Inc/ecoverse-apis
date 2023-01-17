@@ -25,19 +25,28 @@ async def retrieve_farms(
     '''Retrieves all farms.'''
 
     # extract
-    data = crud.get_table(
-        db=db,
-        table=models.FarmsTable
+    farm = DataFormatter.class_to_dict_list(
+        lst=crud.get_table(
+            db=db,
+            table=models.FarmsTable
+        )
     )
-    data = DataFormatter.class_to_dict_list(data)
+
+    ha = DataFormatter.class_to_dict_list(
+        lst=crud.get_table(
+            db=db,
+            table=models.PricingTable
+        )
+    )
 
     # transform
-    data = FarmData.add_tree_co2(data=data, settings=settings)
+    data = FarmData.add_tree_co2(data=farm, settings=settings)
     data = FarmData.groupby_farm_unit(data=data)
     data = FarmData.groupby_farm_id(data=data)
     data = FarmData.add_farm_radius(data=data, settings=settings)
     data = FarmData.add_farm_co2(data=data, settings=settings)
     data = FarmData.add_trees_planted(data=data)
+    data = FarmData.add_hectare_price(data=data, ha=ha)
     data = FarmData.response_format(data=data)
 
     return paginate(data)
