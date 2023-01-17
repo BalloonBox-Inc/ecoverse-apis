@@ -61,7 +61,7 @@ class NFTsTable(Base):
     CarbonUrl = Column(String, nullable=False)
     MintStatus = Column(Boolean, nullable=False)
     MintStartDate = Column(DateTime(timezone=True), nullable=False)
-    MintStartDate = Column(DateTime(timezone=True), nullable=False)
+    MintEndDate = Column(DateTime(timezone=True), nullable=False)
     FarmId = Column(String, nullable=False)
     GenusName = Column(String, nullable=False)
     SpeciesName = Column(String, nullable=False)
