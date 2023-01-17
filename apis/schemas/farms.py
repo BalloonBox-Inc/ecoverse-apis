@@ -10,8 +10,8 @@ class FarmResponse(BaseModel):
     farmId: str | None = None
     groupScheme: str | None = None
     productGroup: str | None = None
-    genusName: str | list | None = None
-    speciesName: str | list | None = None
+    genusName: list | None = None
+    speciesName: list | None = None
     country: str | None = None
     province: str | None = None
     latitude: float | None = None
