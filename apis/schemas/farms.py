@@ -1,11 +1,11 @@
-'''This module defines the HTTP request/response schemas for the /farms FastAPI routers.'''
+'''This module defines the HTTP request/response schemas for the /farm FastAPI routers.'''
 
 from pydantic import BaseModel
 
 
 # Responses
 class FarmResponse(BaseModel):
-    '''Response schema to /farm/*'''
+    '''Response schema to /farm'''
 
     farmId: str | None = None
     groupScheme: str | None = None
