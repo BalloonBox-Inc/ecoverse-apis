@@ -24,6 +24,5 @@ api_routers.include_router(farms.router, prefix=f'{router_prefix}/farm', tags=['
 # NFTs
 api_routers.include_router(nfts.router, prefix=f'{router_prefix}/nft', tags=['NFTs'])
 
-
 # Proof Of Service
-# api_routers.include_router(proof_of_service.router, prefix=router_prefix, tags=['Proof Of Service'])
+api_routers.include_router(proof_of_service.router, prefix=router_prefix, tags=['Proof Of Service'])
