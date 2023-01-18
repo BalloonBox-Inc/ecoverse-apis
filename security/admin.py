@@ -56,8 +56,7 @@ async def get_current_admin(db: Session = Depends(get_db), token: str = Depends(
         token_data = AccessTokenData(username=username)
     except JWTError as e:
         raise creds_exception from e
-    user = get_admin(db=db, username=token_data.username)
-    return user
+    return get_admin(db=db, username=token_data.username)
 
 
 async def get_current_active_admin(current_admin: Admin = Depends(get_current_admin)):

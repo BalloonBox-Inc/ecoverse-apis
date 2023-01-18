@@ -1,6 +1,6 @@
 '''This module defines all database tables.'''
 
-from sqlalchemy import Column, Boolean, Integer, Float, String, DateTime
+from sqlalchemy import Column, Boolean, Integer, Float, String, DateTime, JSON
 from sqlalchemy.sql import func
 
 from database.session import Base
@@ -44,3 +44,39 @@ class FarmsTable(Base):
     IsActive = Column(Boolean, nullable=False)
     CreatedAt = Column(DateTime(timezone=True), server_default=func.now())
     UpdatedAt = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+
+class NFTsTable(Base):
+
+    '''Define nfts as a database table.'''
+
+    __tablename__ = 'nfts'
+
+    Id = Column(Integer, primary_key=True, autoincrement=True)
+    NftId = Column(String, unique=True, nullable=False)
+    NftName = Column(String, nullable=False)
+    NftArea = Column(Float, nullable=False)
+    NftValueSol = Column(Float, nullable=False)
+    Geolocation = Column(JSON, nullable=False)
+    TileCount = Column(Integer, nullable=False)
+    CarbonUrl = Column(String, nullable=False)
+    MintStatus = Column(Boolean, nullable=False)
+    MintStartDate = Column(DateTime(timezone=True), nullable=False)
+    MintEndDate = Column(DateTime(timezone=True), nullable=False)
+    FarmId = Column(String, nullable=False)
+    GenusName = Column(String, nullable=False)
+    SpeciesName = Column(String, nullable=False)
+    PlantStatus = Column(String, nullable=False)
+    CreatedAt = Column(DateTime(timezone=True), server_default=func.now())
+    UpdatedAt = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+
+class PricingTable(Base):
+
+    '''Define pricing as a database table.'''
+
+    __tablename__ = 'pricing'
+
+    Id = Column(Integer, primary_key=True, autoincrement=True)
+    GroupScheme = Column(String, unique=True, nullable=False)
+    HectareUsd = Column(Float, nullable=False)

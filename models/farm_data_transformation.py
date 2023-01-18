@@ -11,9 +11,9 @@ class FarmData:
     '''Farm Data class.'''
 
     def add_farm_co2(data: list, settings: AppSettings) -> list:
-        '''Add carbon sequestration per year and per day - FarmCO2y, FarmCO2d (keys) to list of objects.'''
+        '''Add carbon sequestration per year and per day - FarmCO2y to list of objects.'''
 
-        for d in data:  # pylint: disable=[E1133]
+        for d in data:
             co2 = PlantationCarbonSequestration.plantation_carbon_sequestration(
                 co2=d['PlantCO2'],
                 spha=d['SphaSurvival']*0.9,
@@ -21,7 +21,6 @@ class FarmData:
                 settings=settings
             )
             d['FarmCO2y'] = co2
-            d['FarmCO2d'] = co2/365
 
         return data
 
@@ -29,9 +28,16 @@ class FarmData:
         '''Add farm radius to list of objects based on its area size.'''
 
         hectare = settings.UNIT_CONVERSION.area.haM2
-        for d in data:  # pylint: disable=[E1133]
+        for d in data:
             d['FarmRadius'] = math.sqrt((d['FarmSize']*hectare)/math.pi)
 
+        return data
+
+    def add_hectare_price(data: list, ha: list) -> list:
+        '''Add farm hectare price.'''
+        ha = FarmData.map_hectare_price(data=ha)
+        for d in data:
+            d['HectareUsd'] = ha[d['GroupScheme']]
         return data
 
     def add_tree_co2(data: list, settings: AppSettings) -> list:
@@ -43,6 +49,12 @@ class FarmData:
         df['PlantCO2'] = df['SpeciesName'].map(tree_co2)
 
         return df.to_dict('records')
+
+    def add_trees_planted(data: list) -> list:
+        '''Add estimated number of trees planted.'''
+        for d in data:
+            d['TreesPlanted'] = int(d['SphaSurvival']*d['EffectiveArea'])
+        return data
 
     def calc_tree_co2(settings: AppSettings) -> dict:
         '''Calculate the carbon sequestration based on tree characteristics.'''
@@ -59,12 +71,18 @@ class FarmData:
 
         return tree_co2
 
+    def map_hectare_price(data: list) -> dict:
+        '''Fetch hectare price by Group Scheme.'''
+        price = {}
+        for d in data:
+            price[d['GroupScheme']] = d['HectareUsd']
+        return price
+
     def groupby_farm_id(data: list) -> list:
         '''Group by farm id numbers.'''
 
         df = DataFrame(data)
-        dfg = df.groupby(['FarmId', 'Latitude', 'Longitude', 'Province', 'FarmSize', 'GroupScheme']).agg({
-            'UnitNumber': 'count',
+        dfg = df.groupby(['FarmId', 'Latitude', 'Longitude', 'Country', 'Province', 'FarmSize', 'GroupScheme']).agg({
             'ProductGroup': 'count',  # TODO: it must be unique count
             'EffectiveArea': 'mean',  # TODO: review
             'PlantCO2': 'mean',  # TODO: review
@@ -80,7 +98,7 @@ class FarmData:
         '''Group by farm unit numbers.'''
 
         df = DataFrame(data)
-        dfg = df.groupby(['FarmId', 'Latitude', 'Longitude', 'Province', 'FarmSize', 'GroupScheme', 'UnitNumber', 'ProductGroup']).agg({
+        dfg = df.groupby(['FarmId', 'Latitude', 'Longitude', 'Country', 'Province', 'FarmSize', 'GroupScheme', 'ProductGroup']).agg({
             'SpeciesName': 'count',
             'EffectiveArea': 'mean',
             'PlantCO2': 'mean',
@@ -104,7 +122,7 @@ class FarmData:
         farm = data.copy()
 
         # keys
-        farm = ResponseFormatter.obj_list_to_camel_case(data=farm)
+        farm = ResponseFormatter.obj_list_case_converter(data=farm, fmt='camel')
         # values
         farm = ResponseFormatter.obj_list_strip_string(data=farm)
 
