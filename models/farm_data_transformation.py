@@ -13,7 +13,7 @@ class FarmData:
     def add_farm_co2(data: list, settings: AppSettings) -> list:
         '''Add carbon sequestration per year and per day - FarmCO2y to list of objects.'''
 
-        for d in data:  # pylint: disable=[E1133]
+        for d in data:
             co2 = PlantationCarbonSequestration.plantation_carbon_sequestration(
                 co2=d['PlantCO2'],
                 spha=d['SphaSurvival']*0.9,
@@ -28,13 +28,14 @@ class FarmData:
         '''Add farm radius to list of objects based on its area size.'''
 
         hectare = settings.UNIT_CONVERSION.area.haM2
-        for d in data:  # pylint: disable=[E1133]
+        for d in data:
             d['FarmRadius'] = math.sqrt((d['FarmSize']*hectare)/math.pi)
 
         return data
 
     def add_hectare_price(data: list, ha: list) -> list:
-        ha = FarmData.clean_hectare_price(data=ha)
+        '''Add farm hectare price.'''
+        ha = FarmData.map_hectare_price(data=ha)
         for d in data:
             d['HectareUsd'] = ha[d['GroupScheme']]
         return data
@@ -70,7 +71,8 @@ class FarmData:
 
         return tree_co2
 
-    def clean_hectare_price(data: list) -> dict:
+    def map_hectare_price(data: list) -> dict:
+        '''Fetch hectare price by Group Scheme.'''
         price = {}
         for d in data:
             price[d['GroupScheme']] = d['HectareUsd']
@@ -120,7 +122,7 @@ class FarmData:
         farm = data.copy()
 
         # keys
-        farm = ResponseFormatter.obj_list_case_converter(data=farm, format='camel')
+        farm = ResponseFormatter.obj_list_case_converter(data=farm, fmt='camel')
         # values
         farm = ResponseFormatter.obj_list_strip_string(data=farm)
 

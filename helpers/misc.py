@@ -51,7 +51,7 @@ class DataFormatter:
 
     def class_to_dict_list(lst: list) -> list:
         '''Convert a list of objects to a list of dicts.'''
-        return [item.__dict__ for item in lst]  # pylint: disable=[E1133]
+        return [item.__dict__ for item in lst]
 
     def column_string_to_list(data: DataFrame, column: str, sep: str) -> DataFrame:
         '''Convert string to list in a given dataframe column.'''
@@ -63,7 +63,8 @@ class DatabaseFormatter:
     '''Database formatter class.'''
 
     def nft_table(data: dict) -> dict:
-        d = ResponseFormatter.obj_list_case_converter(data=[data], format='camel')[0]
+        '''Format NFT table column names.'''
+        d = ResponseFormatter.obj_list_case_converter(data=[data], fmt='camel')[0]
         for k in ['saInstanceState', 'id', 'createdAt', 'updatedAt']:
             d.pop(k)
         for k in ['genusName', 'speciesName']:
@@ -102,21 +103,21 @@ class JSONCustomEncoder(json.JSONEncoder):
 class ResponseFormatter:
     '''HTTP Response formatter class.'''
 
-    def obj_list_case_converter(data: list, format: str) -> list:
+    def obj_list_case_converter(data: list, fmt: str) -> list:
         '''Convert the keys case style of a list of dictionaries based on format, e.g. camel, pascal.'''
-        if format == 'camel':
-            for d in data:  # pylint: disable=[E1133]
+        if fmt == 'camel':
+            for d in data:
                 for k in list(d.keys()):
                     d[DataFormatter.camel_case(k)] = d.pop(k)
-        elif format == 'pascal':
-            for d in data:  # pylint: disable=[E1133]
+        elif fmt == 'pascal':
+            for d in data:
                 for k in list(d.keys()):
                     d[DataFormatter.pascal_case(k)] = d.pop(k)
         return data
 
     def obj_list_strip_string(data: list) -> list:
         '''Remove the leading and the trailing characters of the string values of a list of dictionaries.'''
-        for d in data:  # pylint: disable=[E1133]
+        for d in data:
             for k, v in d.items():
                 if isinstance(v, str):
                     d[k] = v.strip()

@@ -1,7 +1,7 @@
 '''This module defines the HTTP request/response schemas for the /nft FastAPI routers.'''
 
-from pydantic import BaseModel
 from datetime import datetime
+from pydantic import BaseModel
 
 
 # Requests

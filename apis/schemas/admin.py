@@ -1,7 +1,7 @@
 '''This module defines the HTTP request/response schemas for the /admin and /token FastAPI routers.'''
 
-from pydantic import BaseModel
 from datetime import datetime
+from pydantic import BaseModel
 
 
 # Dependencies
@@ -56,4 +56,5 @@ class RetrieveAdminsResponse(BaseModel):
 
 class UpdateAdminResponse(RetrieveAdminsResponse):
     '''Response schema to /admin/update'''
-    pass
+
+    pass  # pylint: disable=[W0107]

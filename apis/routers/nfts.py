@@ -52,7 +52,7 @@ async def create_nft(
                     d2=item.__dict__
                 )
             ],
-            format='pascal'
+            fmt='pascal'
         )[0]
         if update:  # TODO: not working
             crud.update_object(
