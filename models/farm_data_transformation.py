@@ -120,7 +120,7 @@ class FarmData:
         farm = data.copy()
 
         # keys
-        farm = ResponseFormatter.obj_list_to_camel_case(data=farm)
+        farm = ResponseFormatter.obj_list_case_converter(data=farm, format='camel')
         # values
         farm = ResponseFormatter.obj_list_strip_string(data=farm)
 
