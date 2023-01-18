@@ -12,11 +12,11 @@ settings = get_settings()
 router_prefix = f'{settings.API.PREFIX}'
 
 
-# # Access Token
-# api_routers.include_router(admin_login.router, prefix=router_prefix, tags=['Access Token'])
+# Access Token
+api_routers.include_router(admin_login.router, prefix=f'{router_prefix}/token', tags=['Access Token'])
 
-# # Admin
-# api_routers.include_router(admin_mgmt.router, prefix=f'{router_prefix}/admin', tags=['Admin'], include_in_schema=False)
+# Admin
+api_routers.include_router(admin_mgmt.router, prefix=f'{router_prefix}/admin', tags=['Admin'], include_in_schema=False)
 
 # Farms
 api_routers.include_router(farms.router, prefix=f'{router_prefix}/farm', tags=['Farms'])

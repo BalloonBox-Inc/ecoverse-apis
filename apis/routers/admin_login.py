@@ -13,7 +13,7 @@ from security.tokens import JSONWebToken
 router = APIRouter()
 
 
-@router.post('/token', response_model=AccessTokenResponse)
+@router.post('', response_model=AccessTokenResponse)
 async def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db)
@@ -32,6 +32,6 @@ async def login_for_access_token(
     access_token = JSONWebToken.create(data={'username': admin.username})
 
     return AccessTokenResponse(
-        accessToken=access_token,
-        tokenType='Bearer'
+        access_token=access_token,
+        token_type='bearer'
     )

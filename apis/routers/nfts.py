@@ -11,7 +11,7 @@ from apis.schemas.nfts import CreateNFTRequest, CreateNFTResponse, FindNFTRespon
 from security.admin import get_current_active_admin
 
 
-router = APIRouter()  # dependencies=[Depends(get_current_active_admin)]) # TODO: fix dependency
+router = APIRouter(dependencies=[Depends(get_current_active_admin)])
 
 
 @router.post('', status_code=status.HTTP_200_OK, response_model=CreateNFTResponse)

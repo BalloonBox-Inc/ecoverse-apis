@@ -14,7 +14,7 @@ from security.admin import get_current_active_admin
 from models.farm_data_transformation import FarmData
 
 
-router = APIRouter()  # dependencies=[Depends(get_current_active_admin)]) # TODO: fix dependency
+router = APIRouter(dependencies=[Depends(get_current_active_admin)])
 
 
 @router.get('', status_code=status.HTTP_200_OK, response_model=Page[FarmResponse])
