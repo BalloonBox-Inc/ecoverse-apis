@@ -40,6 +40,12 @@ class FarmData:
             d['HectareUsd'] = ha[d['GroupScheme']]
         return data
 
+    def add_scientific_name(data: list) -> list:
+        '''Add tree scientific name (genus + species).'''
+        for d in data:
+            d['ScientificName'] = sorted(list({f'{i} {j}' for i, j in zip(d['GenusName'], d['SpeciesName'])}))
+        return data
+
     def add_tree_co2(data: list, settings: AppSettings) -> list:
         '''Add carbon sequestration - PlantCO2 (key) to list of objects.'''
         tree_co2 = FarmData.calc_tree_co2(settings=settings)
@@ -82,35 +88,25 @@ class FarmData:
         '''Group by farm id numbers.'''
 
         df = DataFrame(data)
-        dfg = df.groupby(['FarmId', 'Latitude', 'Longitude', 'Country', 'Province', 'FarmSize', 'GroupScheme']).agg({
-            'ProductGroup': 'count',  # TODO: it must be unique count
-            'EffectiveArea': 'mean',  # TODO: review
-            'PlantCO2': 'mean',  # TODO: review
-            'PlantAge': 'mean',  # TODO: review
-            'SphaSurvival': 'mean'  # TODO: review
-            # TODO: add products list
-        })
-        dfg.reset_index(drop=False, inplace=True)
-
-        return dfg.to_dict('records')
-
-    def groupby_farm_unit(data: list) -> list:
-        '''Group by farm unit numbers.'''
-
-        df = DataFrame(data)
-        dfg = df.groupby(['FarmId', 'Latitude', 'Longitude', 'Country', 'Province', 'FarmSize', 'GroupScheme', 'ProductGroup']).agg({
-            'SpeciesName': 'count',
-            'EffectiveArea': 'mean',
+        dfg = df[df['IsActive']].groupby(['GroupScheme', 'Country', 'Province', 'FarmId', 'Latitude', 'Longitude', 'FarmSize', 'IsActive']).agg({
+            'UnitNumber': 'count',
+            'EffectiveArea': 'sum',
+            'SphaSurvival': 'mean',
             'PlantCO2': 'mean',
             'PlantAge': 'mean',
-            'SphaSurvival': 'sum'  # TODO: review
-            # TODO: add genus and species name
-        })
-        dfg.reset_index(drop=False, inplace=True)
+            'ProductGroup': list,
+            'GenusName': list,
+            'SpeciesName': list
+        }).reset_index(drop=False)
 
-        # dfg = DataFormatter.column_string_to_list(data=dfg, column='SpeciesName', sep=',')
+        dfg = FarmData.remove_duplicates(data=dfg, col='ProductGroup')
 
         return dfg.to_dict('records')
+
+    def remove_duplicates(data: DataFrame, col: str) -> DataFrame:
+        '''Remove duplicates from values (list) of a given column.'''
+        data[col] = data.apply(lambda x: sorted(list(set(x[col]))), axis=1)  # pylint: disable=[E1137]
+        return data
 
     def remove_hybrids(data: DataFrame) -> DataFrame:
         '''Remove hybrid trees.'''
