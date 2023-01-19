@@ -1,7 +1,6 @@
 '''This module is part of the /farms FastAPI router.'''
 
 from fastapi import APIRouter, Depends, status
-from fastapi_pagination import Page, paginate
 from sqlalchemy.orm import Session
 
 from config import get_settings

@@ -43,7 +43,7 @@ class FarmData:
     def add_scientific_name(data: list) -> list:
         '''Add tree scientific name (genus + species).'''
         for d in data:
-            d['ScientificName'] = list(set([f'{i} {j}' for i, j in zip(d['GenusName'], d['SpeciesName'])]))
+            d['ScientificName'] = sorted(list({f'{i} {j}' for i, j in zip(d['GenusName'], d['SpeciesName'])}))
         return data
 
     def add_tree_co2(data: list, settings: AppSettings) -> list:
@@ -88,8 +88,7 @@ class FarmData:
         '''Group by farm id numbers.'''
 
         df = DataFrame(data)
-        df = df[df['IsActive'] == True]
-        dfg = df.groupby(['GroupScheme', 'Country', 'Province', 'FarmId', 'Latitude', 'Longitude', 'FarmSize', 'IsActive']).agg({
+        dfg = df[df['IsActive']].groupby(['GroupScheme', 'Country', 'Province', 'FarmId', 'Latitude', 'Longitude', 'FarmSize', 'IsActive']).agg({
             'UnitNumber': 'count',
             'EffectiveArea': 'sum',
             'SphaSurvival': 'mean',
@@ -106,7 +105,7 @@ class FarmData:
 
     def remove_duplicates(data: DataFrame, col: str) -> DataFrame:
         '''Remove duplicates from values (list) of a given column.'''
-        data[col] = data.apply(lambda x: list(set(x[col])), axis=1)
+        data[col] = data.apply(lambda x: sorted(list(set(x[col]))), axis=1)  # pylint: disable=[E1137]
         return data
 
     def remove_hybrids(data: DataFrame) -> DataFrame:
