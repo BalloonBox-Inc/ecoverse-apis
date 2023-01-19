@@ -53,19 +53,6 @@ class DataFormatter:
         return [item.__dict__ for item in lst]
 
 
-class DatabaseFormatter:
-    '''Database formatter class.'''
-
-    def nft_table(data: dict) -> dict:
-        '''Format NFT table column names.'''
-        d = ResponseFormatter.obj_list_case_converter(data=[data], fmt='camel')[0]
-        for k in ['saInstanceState', 'id', 'createdAt', 'updatedAt']:
-            d.pop(k)
-        for k in ['genusName', 'speciesName']:
-            d.update({k: d[k].replace('{', '').replace('}', '').split(',')})
-        return d
-
-
 class FileManagement:
     '''File management class.'''
 
