@@ -1,6 +1,7 @@
 '''This module defines all database tables.'''
 
-from sqlalchemy import Column, Boolean, Integer, Float, String, DateTime, JSON
+from sqlalchemy import Column, Boolean, Integer, Float, String, DateTime, JSON, PickleType
+from sqlalchemy.ext.mutable import MutableList
 from sqlalchemy.sql import func
 
 from database.session import Base
@@ -52,23 +53,22 @@ class NFTsTable(Base):
 
     __tablename__ = 'nfts'
 
-    Id = Column(Integer, primary_key=True, autoincrement=True)
-    NftId = Column(String, unique=True, nullable=False)
-    NftName = Column(String, nullable=False)
-    NftArea = Column(Float, nullable=False)
-    NftValueSol = Column(Float, nullable=False)
-    Geolocation = Column(JSON, nullable=False)
-    TileCount = Column(Integer, nullable=False)
-    CarbonUrl = Column(String, nullable=False)
-    MintStatus = Column(Boolean, nullable=False)
-    MintStartDate = Column(DateTime(timezone=True), nullable=False)
-    MintEndDate = Column(DateTime(timezone=True), nullable=False)
-    FarmId = Column(String, nullable=False)
-    GenusName = Column(String, nullable=False)
-    SpeciesName = Column(String, nullable=False)
-    PlantStatus = Column(String, nullable=False)
-    CreatedAt = Column(DateTime(timezone=True), server_default=func.now())
-    UpdatedAt = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    nftId = Column(String, unique=True, nullable=False)
+    nftName = Column(String, nullable=False)
+    nftArea = Column(Float, nullable=False)
+    nftValueSol = Column(Float, nullable=False)
+    geolocation = Column(JSON, nullable=False)
+    tileCount = Column(Integer, nullable=False)
+    carbonUrl = Column(String, nullable=False)
+    mintStatus = Column(Boolean, nullable=False)
+    mintStartDate = Column(DateTime(timezone=True), nullable=False)
+    mintEndDate = Column(DateTime(timezone=True), nullable=False)
+    farmId = Column(String, nullable=False)
+    scientificName = Column(MutableList.as_mutable(PickleType), default=[], nullable=False)
+    plantStatus = Column(String, nullable=False)
+    createdAt = Column(DateTime(timezone=True), server_default=func.now())
+    updatedAt = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
 
 class PricingTable(Base):
