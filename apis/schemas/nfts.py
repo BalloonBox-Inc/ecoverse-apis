@@ -5,8 +5,8 @@ from pydantic import BaseModel
 
 
 # Requests
-class CreateNFTRequest(BaseModel):
-    '''Request schema to /nft'''
+class NFTRequest(BaseModel):
+    '''Request schema to /nft/*'''
 
     nftId: str
     nftName: str
@@ -19,21 +19,13 @@ class CreateNFTRequest(BaseModel):
     mintStartDate: datetime
     mintEndDate: datetime
     farmId: str
-    genusName: list
-    speciesName: list
+    scientificName: list
     plantStatus: str
 
 
 # Responses
-class CreateNFTResponse(BaseModel):
-    '''Response schema to /nft'''
-
-    nft: str | None = None
-    status: str | None = None
-
-
-class FindNFTResponse(BaseModel):
-    '''Response schema to /nft/{nftId}'''
+class NFT(BaseModel):
+    '''Standard NFT schema.'''
 
     nftId: str | None = None
     nftName: str | None = None
@@ -46,6 +38,12 @@ class FindNFTResponse(BaseModel):
     mintStartDate: datetime | None = None
     mintEndDate: datetime | None = None
     farmId: str | None = None
-    genusName: list | None = None
-    speciesName: list | None = None
+    scientificName: list | None = None
     plantStatus: str | None = None
+
+
+class NFTResponse(BaseModel):
+    '''Response schema to /nft/*'''
+
+    status: str | None = None
+    data: NFT | None = None
