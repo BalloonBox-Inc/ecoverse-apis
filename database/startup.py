@@ -22,7 +22,7 @@ def start_database():
     # setup admin
     try:
         db = session.SessionLocal()
-        crud.create_object(db=db, data=ADMIN_MASTER)
+        crud.create_object(db=db, object=ADMIN_MASTER)
     except Exception as e:  # noqa: F841 pylint: disable=[W0612,W0703]
         pass
     finally:

@@ -81,6 +81,34 @@ def get_table(
         db.close()
 
 
+def delete_table(
+    db: Session,
+    table: DeclarativeMeta,
+    exc_status_code: status = status.HTTP_409_CONFLICT,
+    exc_message: str = 'Unable to delete objects from the database.'
+):
+    '''
+    Delete all database objects of a table.
+
+        :param db [generator]: Database session.
+        :param table [orm]: Declarative base Table.
+        :param exc_status_code [int]: Exception HTTP status code.
+        :param exc_message [str]: Exception error message.
+    '''
+    try:
+        db.query(table).delete()
+        db.commit()
+
+    except SQLAlchemyError as e:
+        db.rollback()
+        raise ResponseValidationError(
+            status_code=exc_status_code,
+            message=exc_message) from e
+
+    finally:
+        db.close()
+
+
 def create_object(
     db: Session,
     object: DeclarativeMeta,
@@ -111,7 +139,7 @@ def create_object(
 
 def create_objects(
     db: Session,
-    data: list,
+    objects: list[DeclarativeMeta],
     exc_status_code: status = status.HTTP_409_CONFLICT,
     exc_message: str = 'Unable to add objects to the database.'
 ):
@@ -119,12 +147,12 @@ def create_objects(
     Add multiple objects to the database.
 
         :param db [generator]: Database session.
-        :param data [list[[orm]]: List of declarative base objects.
+        :param objects [list[[orm]]: List of declarative base objects.
         :param exc_status_code [int]: Exception HTTP status code.
         :param exc_message [str]: Exception error message.
     '''
     try:
-        db.add_all(data)
+        db.add_all(objects)
         db.commit()
 
     except SQLAlchemyError as e:
@@ -188,34 +216,6 @@ def delete_object(
     '''
     try:
         db.delete(object)
-        db.commit()
-
-    except SQLAlchemyError as e:
-        db.rollback()
-        raise ResponseValidationError(
-            status_code=exc_status_code,
-            message=exc_message) from e
-
-    finally:
-        db.close()
-
-
-def delete_objects(
-    db: Session,
-    object: DeclarativeMeta,
-    exc_status_code: status = status.HTTP_409_CONFLICT,
-    exc_message: str = 'Unable to delete objects from the database.'
-):
-    '''
-    Delete all database objects.
-
-        :param db [generator]: Database session.
-        :param model [orm]: Declarative base object.
-        :param exc_status_code [int]: Exception HTTP status code.
-        :param exc_message [str]: Exception error message.
-    '''
-    try:
-        db.query(object).delete()
         db.commit()
 
     except SQLAlchemyError as e:
