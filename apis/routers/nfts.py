@@ -25,7 +25,7 @@ async def create_nft(
 
     crud.create_object(
         db=db,
-        object=models.NFTsTable(
+        data=models.NFTsTable(
             nftId=item.nftId,
             nftName=item.nftName,
             nftArea=item.nftArea,
@@ -77,7 +77,7 @@ async def update_nft(
             table=models.NFTsTable,
             column=models.NFTsTable.nftId,
             value=item.nftId,
-            object=update,
+            data=update,
             exc_message='Unable to update NFT.'
         )
 

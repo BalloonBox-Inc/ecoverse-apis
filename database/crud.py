@@ -111,7 +111,7 @@ def delete_table(
 
 def create_object(
     db: Session,
-    object: DeclarativeMeta,
+    data: DeclarativeMeta,
     exc_status_code: status = status.HTTP_409_CONFLICT,
     exc_message: str = 'Unable to add object to the database.'
 ):
@@ -119,12 +119,12 @@ def create_object(
     Add an object to the database.
 
         :param db [generator]: Database session.
-        :param object [orm]: Declarative base object.
+        :param data [orm]: Declarative base object.
         :param exc_status_code [int]: Exception HTTP status code.
         :param exc_message [str]: Exception error message.
     '''
     try:
-        db.add(object)
+        db.add(data)
         db.commit()
 
     except SQLAlchemyError as e:
@@ -139,7 +139,7 @@ def create_object(
 
 def create_objects(
     db: Session,
-    objects: list[DeclarativeMeta],
+    data: list[DeclarativeMeta],
     exc_status_code: status = status.HTTP_409_CONFLICT,
     exc_message: str = 'Unable to add objects to the database.'
 ):
@@ -147,12 +147,12 @@ def create_objects(
     Add multiple objects to the database.
 
         :param db [generator]: Database session.
-        :param objects [list[[orm]]: List of declarative base objects.
+        :param data [list[[orm]]: List of declarative base objects.
         :param exc_status_code [int]: Exception HTTP status code.
         :param exc_message [str]: Exception error message.
     '''
     try:
-        db.add_all(objects)
+        db.add_all(data)
         db.commit()
 
     except SQLAlchemyError as e:
@@ -170,7 +170,7 @@ def update_object(
     table: DeclarativeMeta,
     column: DeclarativeMeta,
     value: Any,
-    object: dict,
+    data: dict,
     exc_status_code: status = status.HTTP_409_CONFLICT,
     exc_message: str = 'Unable to update object in the database.'
 ):
@@ -181,13 +181,13 @@ def update_object(
         :param table [orm]: Declarative base Table.
         :param column [orm]: Declarative base Column.
         :param value: Value to look up.
-        :param object [dict]: Update dictionary.
+        :param data [dict]: Update dictionary.
         :param exc_status_code [int]: Exception HTTP status code.
         :param exc_message [str]: Exception error message.
     '''
 
     try:
-        db.query(table).filter(column == value).update(object)
+        db.query(table).filter(column == value).update(data)
         db.commit()
 
     except SQLAlchemyError as e:
@@ -202,7 +202,7 @@ def update_object(
 
 def delete_object(
     db: Session,
-    object: DeclarativeMeta,
+    data: DeclarativeMeta,
     exc_status_code: status = status.HTTP_409_CONFLICT,
     exc_message: str = 'Unable to delete object from the database.'
 ):
@@ -210,12 +210,12 @@ def delete_object(
     Delete a database object.
 
         :param db [generator]: Database session.
-        :param object [orm]: Declarative base object.
+        :param data [orm]: Declarative base object.
         :param exc_status_code [int]: Exception HTTP status code.
         :param exc_message [str]: Exception error message.
     '''
     try:
-        db.delete(object)
+        db.delete(data)
         db.commit()
 
     except SQLAlchemyError as e:

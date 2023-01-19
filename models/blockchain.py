@@ -1,7 +1,7 @@
 '''This module communicates with blockchains through APIs.'''
 
-import requests
 import threading
+import requests
 
 
 class Blockchain:
