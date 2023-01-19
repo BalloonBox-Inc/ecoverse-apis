@@ -77,6 +77,6 @@ class PricingTable(Base):
 
     __tablename__ = 'pricing'
 
-    Id = Column(Integer, primary_key=True, autoincrement=True)
-    GroupScheme = Column(String, unique=True, nullable=False)
-    HectareUsd = Column(Float, nullable=False)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    groupScheme = Column(String, unique=True, nullable=False)
+    hectareUsd = Column(Float, nullable=False)

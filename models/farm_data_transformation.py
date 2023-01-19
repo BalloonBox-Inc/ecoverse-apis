@@ -37,7 +37,7 @@ class FarmData:
         '''Add farm hectare price.'''
         ha = FarmData.map_hectare_price(data=ha)
         for d in data:
-            d['HectareUsd'] = ha[d['GroupScheme']]
+            d['hectareUsd'] = ha[d['GroupScheme']]
         return data
 
     def add_scientific_name(data: list) -> list:
@@ -81,7 +81,7 @@ class FarmData:
         '''Fetch hectare price by Group Scheme.'''
         price = {}
         for d in data:
-            price[d['GroupScheme']] = d['HectareUsd']
+            price[d['groupScheme']] = d['hectareUsd']
         return price
 
     def groupby_farm_id(data: list) -> list:
