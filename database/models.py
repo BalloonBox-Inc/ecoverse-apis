@@ -80,3 +80,5 @@ class PricingTable(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     groupScheme = Column(String, unique=True, nullable=False)
     hectareUsd = Column(Float, nullable=False)
+    createdAt = Column(DateTime(timezone=True), server_default=func.now())
+    updatedAt = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
