@@ -1,7 +1,7 @@
 '''This module communicates with blockchains through APIs.'''
 
 import threading
-import requests
+# import requests
 
 
 class BlockchainRequest:
@@ -14,5 +14,6 @@ class BlockchainRequest:
 
     def update_nft(data: dict) -> None:
         '''Request an NFT update onto Solana blockchain.'''
-        url = ''  # TODO: add url when it's ready
-        requests.post(url, data=data, timeout=10)
+        url = 'WAITING FOR URL'  # TODO: add url when it's ready
+        # requests.post(url, data=data, timeout=10)
+        print(url)
