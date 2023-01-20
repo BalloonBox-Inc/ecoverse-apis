@@ -20,9 +20,7 @@ async def valid_farm_id(request: Request):
     '''Ensure farmId parameter is valid.'''
 
     try:
-        farm_id = int(request.path_params['farmId'])
-        return farm_id
-
+        return int(request.path_params['farmId'])
     except ValueError as exc:
         raise ResponseValidationError(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
