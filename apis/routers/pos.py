@@ -1,6 +1,6 @@
 '''This module is part of the /farm FastAPI router.'''
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, BackgroundTasks, Depends, status
 from fastapi.responses import HTMLResponse
 from sqlalchemy.orm import Session
 
@@ -19,6 +19,7 @@ router = APIRouter(dependencies=[Depends(get_current_active_admin)])
 
 @router.get('/satellite/{farmId}', dependencies=[Depends(valid_farm_id)], status_code=status.HTTP_200_OK, response_class=HTMLResponse)
 async def show_farm_satellite_view(
+    background_task: BackgroundTasks,
     farmId: str,
     db: Session = Depends(get_db),
     settings: AppSettings = Depends(get_settings)
@@ -38,6 +39,11 @@ async def show_farm_satellite_view(
         lat=farm.Latitude,
         lng=farm.Longitude,
         settings=settings
+    )
+
+    background_task.add_task(
+        FileManagement.remove_file,
+        filename=html
     )
 
     return FileManagement.read_file(html)

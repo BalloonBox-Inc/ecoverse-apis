@@ -131,5 +131,5 @@ dmypy.json
 # Apple macOS operating system
 .DS_Store
 
-# Temporary media
-/temp
+# HTML files
+*.html

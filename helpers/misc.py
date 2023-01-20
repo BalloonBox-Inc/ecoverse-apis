@@ -1,5 +1,6 @@
 '''This module contains a miscellaneous collection of unit functions.'''
 
+import os
 import json
 from typing import Any
 from uuid import UUID
@@ -65,6 +66,11 @@ class FileManagement:
             if _type == 'json':
                 return json.load(f)
         return None
+
+    def remove_file(filename: str) -> None:
+        '''Remove file if exists.'''
+        if os.path.exists(filename):
+            os.remove(filename)
 
 
 class JSONCustomEncoder(json.JSONEncoder):
