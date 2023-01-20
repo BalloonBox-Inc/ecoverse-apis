@@ -3,7 +3,7 @@
 from fastapi import APIRouter
 
 from config import get_settings
-from apis.routers import admin_login, admin_mgmt, farms, nfts
+from apis.routers import admin_login, admin_mgmt, farms, nfts, pos
 
 
 api_routers = APIRouter()
@@ -23,3 +23,6 @@ api_routers.include_router(farms.router, prefix=f'{router_prefix}/farm', tags=['
 
 # NFTs
 api_routers.include_router(nfts.router, prefix=f'{router_prefix}/nft', tags=['NFTs'])
+
+# Proof Of Service
+api_routers.include_router(pos.router, prefix=router_prefix, tags=['Proof Of Service'])

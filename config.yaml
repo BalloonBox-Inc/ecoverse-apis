@@ -21,4 +21,11 @@ DATABASE:
 SECURITY:
   JWT_EXPIRE_MINUTES: !ENV ${JWT_EXPIRE_MINUTES} # It is recommended to be shorter than 30 minutes
   JWT_ALGORITHM: !ENV ${JWT_ALGORITHM} # It is recommended to use one of the following: HS256 | RS256 | HS512 | RS512
-  JWT_SECRET_KEY: !ENV ${JWT_SECRET_KEY} # To generate a secure random secret key use the command: openssl rand -hex 512
+  JWT_SECRET_KEY: !ENV ${JWT_SECRET_KEY} # To generate a secure random secret key use the command: openssl rand -hex <256 or 512 depending on algo used>
+
+GIS:
+  MAPBOX:
+    ACCESS_TOKEN: !ENV ${MAPBOX_ACCESS_TOKEN}
+  SENTINELSAT:
+    USERNAME: !ENV ${SENTINEL_USERNAME}
+    PASSWORD: !ENV ${SENTINEL_PASSWORD}
