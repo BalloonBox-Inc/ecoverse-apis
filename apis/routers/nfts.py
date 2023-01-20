@@ -8,7 +8,7 @@ from helpers.misc import DataAggregator
 from database import crud, models
 from database.session import get_db
 from apis.schemas.nfts import NFTRequest, NFTResponse
-from models.blockchain import Blockchain
+from models.blockchain import BlockchainRequest
 from security.admin import get_current_active_admin
 
 
@@ -44,7 +44,7 @@ async def create_nft(
     )
 
     background_task.add_task(
-        Blockchain.request_update,
+        BlockchainRequest.request_update,
         req_type='NFT',
         data=item.__dict__
     )
