@@ -99,7 +99,9 @@ class FarmData:
             'SpeciesName': list
         }).reset_index(drop=False)
 
-        dfg = FarmData.remove_duplicates(data=dfg, col='ProductGroup')
+        # remove duplicates
+        dfg = FarmData.remove_duplicates(data=dfg, col='ProductGroup').sort_values(by=['GroupScheme', 'FarmSize'], ascending=[True, False])
+        dfg = dfg.drop_duplicates(subset=['Latitude', 'Longitude'], keep='first')
 
         return dfg.to_dict('records')
 
