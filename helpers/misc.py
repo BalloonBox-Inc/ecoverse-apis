@@ -44,7 +44,7 @@ class DataFormatter:
         return pascalcase(s)
 
     def postgresql(s: str) -> str:
-        '''Format PostgreSQL URI string.'''
+        '''Format PostgreSQL URL string.'''
         if 'postgresql' not in s:  # pylint: disable=[E1135]
             return s.replace('postgres', 'postgresql')
         return s

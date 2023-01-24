@@ -3,6 +3,8 @@
 from fastapi import APIRouter, BackgroundTasks, Depends, status
 from sqlalchemy.orm import Session
 
+from config import get_settings
+from helpers.misc import AppSettings
 # from helpers.api_exceptions import ResponseValidationError # TODO: add exceptions
 from database import crud, models
 from database.session import get_db
@@ -18,7 +20,8 @@ router = APIRouter(dependencies=[Depends(get_current_active_admin)])
 async def create_nft(
     background_task: BackgroundTasks,
     item: NFTRequest,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    settings: AppSettings = Depends(get_settings)
 ):
     '''Creates a NFT object in the database.'''
 
@@ -32,7 +35,7 @@ async def create_nft(
             geolocation=item.geolocation,
             tileCount=item.tileCount,
             carbonUrl=item.carbonUrl,
-            mintStatus=item.mintStatus,
+            mintStatus=False,
             mintStartDate=item.mintStartDate,
             mintEndDate=item.mintEndDate,
             farmId=item.farmId,
@@ -45,7 +48,8 @@ async def create_nft(
     background_task.add_task(
         BlockchainRequest.request_update,
         req_type='NFT',
-        data=item.__dict__
+        data=item.__dict__,
+        settings=settings
     )
 
     return NFTResponse(

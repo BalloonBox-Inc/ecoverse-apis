@@ -15,7 +15,6 @@ class NFTRequest(BaseModel):
     geolocation: dict
     tileCount: int
     carbonUrl: str
-    mintStatus: bool
     mintStartDate: datetime
     mintEndDate: datetime
     farmId: str
