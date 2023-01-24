@@ -3,7 +3,6 @@
 from fastapi import APIRouter, BackgroundTasks, Depends, status
 from sqlalchemy.orm import Session
 
-from helpers.misc import DataAggregator
 # from helpers.api_exceptions import ResponseValidationError # TODO: add exceptions
 from database import crud, models
 from database.session import get_db
@@ -55,33 +54,31 @@ async def create_nft(
     )
 
 
-@router.post('/update', status_code=status.HTTP_200_OK, response_model=NFTResponse)
+@router.post('/update/{nftId}', status_code=status.HTTP_200_OK, response_model=NFTResponse)
 async def update_nft(
-    item: NFTRequest,
+    nftId: str,
     db: Session = Depends(get_db)
 ):
-    '''Updates a NFT object in the database.'''
+    '''Updates a NFT mint status to True in the database.'''
+
+    crud.update_object(
+        db=db,
+        table=models.NFTsTable,
+        column=models.NFTsTable.nftId,
+        value=nftId,
+        data={'mintStatus': True},
+        exc_message='Unable to update NFT.'
+    )
 
     nft = crud.get_object(
         db=db,
         table=models.NFTsTable,
         column=models.NFTsTable.nftId,
-        value=item.nftId,
+        value=nftId,
         exc_message='Unable to find NFT.'
     )
 
-    update = DataAggregator.dict_mismatch(d1=nft.__dict__, d2=item.__dict__)
-    if update:
-        crud.update_object(
-            db=db,
-            table=models.NFTsTable,
-            column=models.NFTsTable.nftId,
-            value=item.nftId,
-            data=update,
-            exc_message='Unable to update NFT.'
-        )
-
     return NFTResponse(
         status='Success',
-        data=item.__dict__
+        data=nft.__dict__
     )
