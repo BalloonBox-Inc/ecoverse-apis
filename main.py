@@ -8,6 +8,7 @@ from config import get_settings
 from apis.middleware import api_routers
 from database.startup import start_database
 from helpers.api_routers import APIRouters
+from helpers.api_cors import CrossOrigin
 from helpers.api_throttling import Throttling
 from helpers.api_exceptions import ResponseValidationError, request_exception_handler, response_exception_handler
 
@@ -19,6 +20,7 @@ def start_application():
 
     app = FastAPI(title=settings.APP.PROJECT_NAME, version=settings.APP.PROJECT_VERSION)
     app = Throttling.enable(app)
+    app = CrossOrigin.enable(app)
     app = APIRouters.include(app, api_routers)
 
     app.add_exception_handler(RequestValidationError, request_exception_handler)
