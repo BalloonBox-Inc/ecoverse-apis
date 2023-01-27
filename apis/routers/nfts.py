@@ -1,5 +1,6 @@
 '''This module is part of the /farms FastAPI router.'''
 
+import json
 from fastapi import APIRouter, BackgroundTasks, Depends, status
 from sqlalchemy.orm import Session
 
@@ -24,6 +25,8 @@ async def create_nft(
     settings: AppSettings = Depends(get_settings)
 ):
     '''Creates a NFT object in the database.'''
+
+    item.geolocation = json.loads(item.geolocation)
 
     crud.create_object(
         db=db,

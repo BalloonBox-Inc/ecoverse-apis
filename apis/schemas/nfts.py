@@ -12,7 +12,7 @@ class NFTRequest(BaseModel):
     nftName: str
     nftArea: float
     nftValueSol: float
-    geolocation: dict
+    geolocation: str
     tileCount: int
     carbonUrl: str
     mintStartDate: datetime
