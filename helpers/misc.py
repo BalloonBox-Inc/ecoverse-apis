@@ -39,6 +39,12 @@ class DataFormatter:
         '''Convert a string case to camel style.'''
         return camelcase(s)
 
+    def dictionary(data: dict, name: str) -> dict:
+        '''Custom formats a dictionay based on dict name.'''
+        if name == 'NFT':
+            data.update({'geolocation': json.dumps(data['geolocation'])})  # pylint: disable=[E1136]
+        return data
+
     def pascal_case(s: str) -> str:
         '''Convert a string case to pascal style.'''
         return pascalcase(s)

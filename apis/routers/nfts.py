@@ -5,7 +5,7 @@ from fastapi import APIRouter, BackgroundTasks, Depends, status
 from sqlalchemy.orm import Session
 
 from config import get_settings
-from helpers.misc import AppSettings
+from helpers.misc import AppSettings, DataFormatter
 # from helpers.api_exceptions import ResponseValidationError # TODO: add exceptions
 from database import crud, models
 from database.session import get_db
@@ -48,10 +48,11 @@ async def create_nft(
         exc_message='Unable to create NFT.'
     )
 
+    update = DataFormatter.dictionary(data=item.__dict__, name='NFT')
     background_task.add_task(
         BlockchainRequest.request_update,
         req_type='NFT',
-        data=item.__dict__,
+        data=update,
         settings=settings
     )
 
