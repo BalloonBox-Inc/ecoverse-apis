@@ -94,7 +94,7 @@ async def update_nft(
     )
 
 
-@router.get('/carbon-sequestered/{nftId}', status_code=status.HTTP_200_OK, response_model=NFTCO2Response)
+@router.get('/{nftId}', status_code=status.HTTP_200_OK, response_model=NFTCO2Response)
 async def get_nft_carbon_sequestered(
     nftId: str,
     db: Session = Depends(get_db),
@@ -116,7 +116,7 @@ async def get_nft_carbon_sequestered(
     except (KeyError, IndexError) as exc:
         raise ResponseValidationError(
             status_code=status.HTTP_400_BAD_REQUEST,
-            message='Unable to find Farm.'
+            message='Unable to find NFT.'
         ) from exc
 
     # calculate timedelta in seconds
