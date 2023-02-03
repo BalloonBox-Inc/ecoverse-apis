@@ -2,13 +2,52 @@
 
 import math
 from pandas import DataFrame
+from sqlalchemy.orm import Session
 
-from helpers.misc import AppSettings, ResponseFormatter
+from database import crud, models
+from helpers.misc import AppSettings, DataFormatter, ResponseFormatter
 from models.carbon_sequestration import TreeCarbonSequestration, PlantationCarbonSequestration
 
 
 class FarmData:
     '''Farm Data class.'''
+
+    def retrieve_farms(db: Session, settings: AppSettings) -> list:
+        '''Retrive all farms from the database.'''
+
+        # extract
+        farm = DataFormatter.class_to_dict_list(
+            lst=crud.get_table(
+                db=db,
+                table=models.FarmsTable
+            )
+        )
+
+        ha = DataFormatter.class_to_dict_list(
+            lst=crud.get_table(
+                db=db,
+                table=models.PricingTable
+            )
+        )
+
+        # transform
+        data = FarmData.add_tree_co2(data=farm, settings=settings)
+        data = FarmData.groupby_farm_id(data=data)
+        data = FarmData.add_scientific_name(data=data)
+        data = FarmData.add_farm_radius(data=data, settings=settings)
+        data = FarmData.add_farm_co2(data=data, settings=settings)
+        data = FarmData.add_trees_planted(data=data)
+        data = FarmData.add_hectare_price(data=data, ha=ha)
+        data = FarmData.response_format(data=data)
+
+        # TODO: this data must come from the source partners, remove it after it
+        for d in data:
+            if d['groupScheme'] == 'Sri Trang Thailand':
+                d['isFscCertified'] = True
+            else:
+                d['isFscCertified'] = False
+
+        return data
 
     def add_farm_co2(data: list, settings: AppSettings) -> list:
         '''Add carbon sequestration per year and per day - FarmCO2y to list of objects.'''
@@ -63,7 +102,7 @@ class FarmData:
         return data
 
     def calc_tree_co2(settings: AppSettings) -> dict:
-        '''Calculate the carbon sequestration based on tree characteristics.'''
+        '''Calculate the carbon sequestration (pounds) based on tree characteristics.'''
 
         metrics = settings.PLANTATION_METRICS.plantationMetrics
         for tree in metrics:

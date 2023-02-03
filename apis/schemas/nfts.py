@@ -41,8 +41,24 @@ class NFT(BaseModel):
     plantStatus: str | None = None
 
 
+class NFTCO2(BaseModel):
+    '''Standard NFT CO2 schema.'''
+
+    nftId: str | None = None
+    nftArea: float | None = None
+    mintStartDate: datetime | None = None
+    co2Tons: float | None = None
+
+
 class NFTResponse(BaseModel):
     '''Response schema to /nft/*'''
 
     status: str | None = None
     data: NFT | None = None
+
+
+class NFTCO2Response(BaseModel):
+    '''Response schema to /nft/carbon-sequestered/{nftId}'''
+
+    status: str | None = None
+    data: NFTCO2 | None = None

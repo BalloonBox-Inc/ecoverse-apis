@@ -130,3 +130,25 @@ class PlantationCarbonSequestration:
         '''
         ton = settings.UNIT_CONVERSION.weight.tonLb
         return co2*spha/ton
+
+
+class NftCarbonSequestration:
+    '''NFT carbon Sequestration class.'''
+
+    def nft_carbon_sequestration(nft_area: float, farm_spha: float, trees_co2: float, period: float, settings: AppSettings) -> float:
+        '''
+        Determines the weight of carbon sequestered of a given area during a certain period of time (seconds).
+
+            :param nft_area: Area in hectares.
+            :param farm_spha: The number of stems per hectare.
+            :param trees_co2: Trees CO2 sequestered capacity in pounds.
+            :param period: Timespan in seconds
+            :param settings: Application settings.
+
+            :returns [float]: NFT CO2 sequestered in tons.
+        '''
+
+        ton = settings.UNIT_CONVERSION.weight.tonLb
+        co2_per_ha = trees_co2*farm_spha/ton
+        area_co2 = co2_per_ha*nft_area
+        return area_co2/period

@@ -31,6 +31,10 @@ class DataAggregator:
         '''Find the difference between two dictionaries.'''
         return {k: v for k, v in d2.items() if k in [k for k in d1.keys() & d2 if d1[k] != d2[k]]}
 
+    def date_difference_in_seconds(start: datetime, end: datetime) -> float:
+        '''Calculate the difference, in seconds, between two dates.'''
+        return (end-start).total_seconds()
+
 
 class DataFormatter:
     '''Data formatter class.'''
