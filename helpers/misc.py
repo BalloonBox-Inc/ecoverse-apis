@@ -31,6 +31,10 @@ class DataAggregator:
         '''Find the difference between two dictionaries.'''
         return {k: v for k, v in d2.items() if k in [k for k in d1.keys() & d2 if d1[k] != d2[k]]}
 
+    def date_difference_in_seconds(start: datetime, end: datetime) -> float:
+        '''Calculate the difference, in seconds, between two dates.'''
+        return (end-start).total_seconds()
+
 
 class DataFormatter:
     '''Data formatter class.'''
@@ -39,12 +43,18 @@ class DataFormatter:
         '''Convert a string case to camel style.'''
         return camelcase(s)
 
+    def dictionary(data: dict, name: str) -> dict:
+        '''Custom formats a dictionay based on dict name.'''
+        if name == 'NFT':
+            data.update({'geolocation': json.dumps(data['geolocation'])})  # pylint: disable=[E1136]
+        return data
+
     def pascal_case(s: str) -> str:
         '''Convert a string case to pascal style.'''
         return pascalcase(s)
 
     def postgresql(s: str) -> str:
-        '''Format PostgreSQL URI string.'''
+        '''Format PostgreSQL URL string.'''
         if 'postgresql' not in s:  # pylint: disable=[E1135]
             return s.replace('postgres', 'postgresql')
         return s

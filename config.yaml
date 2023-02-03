@@ -16,12 +16,16 @@ DATABASE:
     PASSWORD: !ENV ${MSSQL_PASSWORD}
     DATABASE: !ENV ${MSSQL_DATABASE}
   POSTGRESQL:
-    URI: !ENV ${DATABASE_URL}
+    URL: !ENV ${DATABASE_URL}
 
 SECURITY:
   JWT_EXPIRE_MINUTES: !ENV ${JWT_EXPIRE_MINUTES} # It is recommended to be shorter than 30 minutes
   JWT_ALGORITHM: !ENV ${JWT_ALGORITHM} # It is recommended to use one of the following: HS256 | RS256 | HS512 | RS512
   JWT_SECRET_KEY: !ENV ${JWT_SECRET_KEY} # To generate a secure random secret key use the command: openssl rand -hex <256 or 512 depending on algo used>
+
+NFT:
+  URL:
+    UPDATE: !ENV ${NFT_UPDATE_URL}
 
 GIS:
   MAPBOX:
