@@ -11,7 +11,7 @@ class CrossOrigin:
         '''Enable CORS to allow a server to indicate any origins from which a browser should permit loading resources.'''
         app.add_middleware(
             CORSMiddleware,
-            allow_origins=['http://localhost:8000'],
+            allow_origins=['http://localhost:3000', 'http://localhost:8000'],
             allow_credentials=True,
             allow_methods=['*'],
             allow_headers=['*']
